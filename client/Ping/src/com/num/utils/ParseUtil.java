@@ -59,10 +59,13 @@ public class ParseUtil {
 		while (scanLines.hasNextLine()) {
 			try {
 				String line = scanLines.nextLine();
-				int count = Integer.parseInt(line.split("icmp_seq=")[1].split(" ")[0]);
-				double value = Double.parseDouble(line.split("time=")[1].split(" ms")[0]);
+				if(line != null && line.length() !=0)
+				{
+					int count = Integer.parseInt(line.split("icmp_seq=")[1].split(" ")[0]);
+					double value = Double.parseDouble(line.split("time=")[1].split(" ms")[0]);
+					experiment.addSequence(value, count);
+				}
 				
-				experiment.addSequence(value, count);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
