@@ -58,14 +58,16 @@ public class ParseUtil {
 
 		while (scanLines.hasNextLine()) {
 			try {
+				// CHECK FOR INDEXOUTOFBOUND ERROR
 				String line = scanLines.nextLine();
 				if(line != null && line.length() !=0)
 				{
-					int count = Integer.parseInt(line.split("icmp_seq=")[1].split(" ")[0]);
-					double value = Double.parseDouble(line.split("time=")[1].split(" ms")[0]);
-					experiment.addSequence(value, count);
+					if (line.contains("icmp_seq") && line.contains("time=")) {
+						int count = Integer.parseInt(line.split("icmp_seq=")[1].split(" ")[0]);	
+						double value = Double.parseDouble(line.split("time=")[1].split(" ms")[0]);
+						experiment.addSequence(value, count);
+					}
 				}
-				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
