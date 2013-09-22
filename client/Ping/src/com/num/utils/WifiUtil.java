@@ -62,40 +62,42 @@ public class WifiUtil {
 		@Override
 		public void gotNeighbor(List<ScanResult> wifiList){
 			try{
-				
-			
-			ArrayList<WifiNeighbor> neighbors = new ArrayList<WifiNeighbor>();
-			ArrayList<WifiPreference> prefers = wifi.getPreference();
-			for (int i = 0; i < wifiList.size(); i++) {
-				WifiNeighbor n = new WifiNeighbor();
-				String bssid = wifiList.get(i).BSSID;
-				String capability = wifiList.get(i).capabilities;
-				int frequency = wifiList.get(i).frequency;
-				int signalLevel = wifiList.get(i).level;
-				String ssid = wifiList.get(i).SSID;
-
-				n.setCapability(capability);
-				n.setMacAddress(bssid);
-				n.setFrequency(frequency);
-				n.setSignalLevel(signalLevel);
-				n.setSSID(ssid);
-				n.setPreferred(false);
-				if (ssid.equalsIgnoreCase(wifi.getSsid())) {
-					n.setConnected(true);
-				}
-				else {
-					n.setConnected(false);
-				}
-				for (int j = 0; j < prefers.size(); j++) {
-					if (ssid.equalsIgnoreCase(prefers.get(j).getSsid())) {
-						n.setPreferred(true);
-						break;
+				ArrayList<WifiNeighbor> neighbors = new ArrayList<WifiNeighbor>();
+				// HOLDER TO BE FIXED LATER
+				ArrayList<WifiPreference> prefers = new ArrayList<WifiPreference>();
+				if (wifi != null) {
+					prefers = wifi.getPreference();
+				} 
+				for (int i = 0; i < wifiList.size(); i++) {
+					WifiNeighbor n = new WifiNeighbor();
+					String bssid = wifiList.get(i).BSSID;
+					String capability = wifiList.get(i).capabilities;
+					int frequency = wifiList.get(i).frequency;
+					int signalLevel = wifiList.get(i).level;
+					String ssid = wifiList.get(i).SSID;
+	
+					n.setCapability(capability);
+					n.setMacAddress(bssid);
+					n.setFrequency(frequency);
+					n.setSignalLevel(signalLevel);
+					n.setSSID(ssid);
+					n.setPreferred(false);
+					if (ssid.equalsIgnoreCase(wifi.getSsid())) {
+						n.setConnected(true);
 					}
+					else {
+						n.setConnected(false);
+					}
+					for (int j = 0; j < prefers.size(); j++) {
+						if (ssid.equalsIgnoreCase(prefers.get(j).getSsid())) {
+							n.setPreferred(true);
+							break;
+						}
+					}
+					neighbors.add(n);
 				}
-				neighbors.add(n);
-			}
-			wifi.setNeighbors(neighbors);	
-			notDone = false;
+				wifi.setNeighbors(neighbors);	
+				notDone = false;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
