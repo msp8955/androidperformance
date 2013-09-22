@@ -16,6 +16,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.num.database.DatabaseOutput;
 import com.num.database.mapping.BaseMapping;
@@ -23,7 +24,6 @@ import com.num.database.mapping.LatencyMapping;
 import com.num.database.mapping.ThroughputMapping;
 import com.num.helpers.GAnalytics;
 import com.num.models.GraphData;
-
 import com.num.models.GraphPoint;
 import com.num.models.LastMile;
 import com.num.models.Link;
@@ -48,6 +48,10 @@ public class LatencyDataSource extends DataSource {
 	}
 	
 	private void addRow(Ping p, String connectionType) {
+
+		if(!database.isOpen()) {
+			database = dbHelper.getWritableDatabase();
+		}
 		
 		ContentValues value = new ContentValues();		
 		Measure m = p.getMeasure();	
@@ -91,11 +95,18 @@ public class LatencyDataSource extends DataSource {
 		value4.put(LatencyMapping.COLUMN_MEASUREMENT, "std deviation");
 		value4.put(LatencyMapping.COLUMN_SRCIP, p.getSrcIp().substring(1));
 		value4.put(LatencyMapping.COLUMN_DSTIP, p.getDst().getTagname());
-		
-		database.insert(dbHelper.getTableName(), null, value);
-		database.insert(dbHelper.getTableName(), null, value2);
-		database.insert(dbHelper.getTableName(), null, value3);
-		database.insert(dbHelper.getTableName(), null, value4);
+
+		if(!database.isOpen()) {
+			database = dbHelper.getWritableDatabase();
+		}
+		try {
+			database.insert(dbHelper.getTableName(), null, value);
+			database.insert(dbHelper.getTableName(), null, value2);
+			database.insert(dbHelper.getTableName(), null, value3);
+			database.insert(dbHelper.getTableName(), null, value4);
+		} catch (Exception e) {
+			Log.d("db", e.getLocalizedMessage());
+		}
 		
 	}
 	

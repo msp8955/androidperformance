@@ -61,8 +61,6 @@ public abstract class DataSource {
 		}
 	}
 
-	// TODO this right now
-
 	public void waitForTransaction() {
 
 		while (inTransaction) {
@@ -233,11 +231,16 @@ public abstract class DataSource {
 	}
 
 	public void insert(Model model) {
-		Log.w("db", "inserting");
-		open();
-		insertModel(model);
-		close();
-
+		Log.d("db", "inserting");
+		try {
+			open();
+			insertModel(model);	
+		} catch (Exception e) {
+			Log.d("db", e.getLocalizedMessage());
+		} finally {
+			// Make sure that database closes even if there is exception 
+			close();			
+		}
 	}
 
 	public ArrayList<GraphPoint> getGraphData(HashMap<String, String> filter) {
