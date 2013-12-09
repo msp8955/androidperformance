@@ -8,18 +8,14 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.location.Location;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.util.Log;
 
 import com.num.Values;
 import com.num.database.datasource.LatencyDataSource;
 import com.num.helpers.MeasurementHelper;
 import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.BaseResponseListener;
-import com.num.listeners.FakeListener;
 import com.num.listeners.ResponseListener;
+import com.num.mobiperf.Checkin;
 import com.num.models.Address;
 import com.num.models.Battery;
 import com.num.models.ClientLog;
@@ -31,7 +27,6 @@ import com.num.models.Loss;
 import com.num.models.Measurement;
 import com.num.models.Network;
 import com.num.models.Ping;
-import com.num.models.Screen;
 import com.num.models.Sim;
 import com.num.models.Throughput;
 import com.num.models.Traceroute;
@@ -39,10 +34,7 @@ import com.num.models.TracerouteEntry;
 import com.num.models.Usage;
 import com.num.models.WarmupExperiment;
 import com.num.models.Wifi;
-import com.num.utils.GPSUtil;
 import com.num.utils.GPSUtil.LocationResult;
-import com.num.utils.SignalUtil;
-import com.num.utils.SignalUtil.SignalResult;
 
 /*
  * Measurement Task 
@@ -55,6 +47,7 @@ import com.num.utils.SignalUtil.SignalResult;
 public class MeasurementTask extends ServerTask {
 
 	ThreadPoolHelper serverhelper;
+	Context context;
 	Values session;
 	MeasurementListener listener;
 	Throughput throughput;
@@ -66,6 +59,7 @@ public class MeasurementTask extends ServerTask {
 	public MeasurementTask(Context context, Throughput throughput,
 			boolean isManual, ResponseListener listener) {
 		super(context, new HashMap<String, String>(), listener);
+		this.context = context;
 		measurement = new Measurement();
 		measurement.setManual(isManual);
 		this.listener = new MeasurementListener();
@@ -137,6 +131,8 @@ public class MeasurementTask extends ServerTask {
 	private class MeasurementListener extends BaseResponseListener {
 
 		public void onCompletePing(Ping response) {
+			Checkin checkin = new Checkin(context);
+			checkin.sendPing("ping", measurement, response);
 			pings.add(response);
 			dataSource.insert(response);
 		}

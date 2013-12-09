@@ -1,7 +1,10 @@
 package com.num.models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TimeZone;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -190,15 +193,131 @@ public class Measurement implements MainModel{
 	public void setGps(GPS gps) {
 		this.gps = gps;
 	}
+	
+	private static final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+	static {
+		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+	}
+	public JSONObject toMobiperfJSON() {
+		/* Example of the mobiperf ping command 
+		 * [{
+		    "timestamp": 1382419261277000,
+		    "values": {
+		        "target_ip": "\"74.125.140.103\"",
+		        "max_rtt_ms": "69.6",
+		        "mean_rtt_ms": "46.559999999999995",
+		        "filtered_mean_rtt_ms": "44.0",
+		        "packet_loss": "0.0",
+		        "ping_method": "\"ping_cmd\"",
+		        "packets_sent": "10",
+		        "min_rtt_ms": "40.6",
+		        "stddev_rtt_ms": "8.054092127608175"
+		    },
+		    "task_key": null,
+		    "device_id": "99000342808854",
+		    "properties": {
+		        "cell_info": null,
+		        "location_type": "network",
+		        "network_type": "WIFI",
+		        "location": {
+		            "longitude": -84.38707806563191,
+		            "latitude": 33.81981981981982
+		        },
+		        "is_battery_charging": true,
+		        "battery_level": 45,
+		        "app_version": "v2.1",
+		        "device_id": "99000342808854",
+		        "dn_resolvability": "IPv4 only",
+		        "os_version": "INCREMENTAL:I545VRUAME7, RELEASE:4.2.2, SDK_INT:17",
+		        "timestamp": 1382419261254000,
+		        "ip_connectivity": "IPv4 only",
+		        "carrier": "Verizon Wireless",
+		        "rssi": 17
+		    },
+		    "parameters": {
+		        "interval_sec": 5,
+		        "count": 1,
+		        "ping_exe": "\/system\/bin\/ping",
+		        "end_time": "2013-10-23T05:20:53.288Z",
+		        "priority": -2147483648,
+		        "target": "www.google.com",
+		        "start_time": "2013-10-22T05:20:53.286Z",
+		        "parameters": null,
+		        "type": "ping",
+		        "key": null,
+		        "packet_size_byte": 56,
+		        "ping_timeout_sec": 10
+		    },
+		    "type": "ping",
+		    "success": true
+		}]
+		
+		  loss. ping[s]. warmup, state, network, throughput, lastmile, battery, device, sim, usage, 
+		  seperate these into individual tasks
+		  - Loss 
+		  - Ping (Many seperate pings)
+		  - Warmup (try to group them into one)
+		  - State (include network, battery, device, sim) 
+		  - Usage (Have one usage data for each ping)
+		  - Throughput
+		  - Lastmile (Find out what this is exactly) 
+		
+		 */
+		JSONObject obj = new JSONObject();
+		try {
+			JSONObject property = new JSONObject();
+			JSONObject value = new JSONObject();
+			JSONObject parameter = new JSONObject();
+			try {
+				// Property
+				putSafe(property, "cell_info", network.cellType);
+				putSafe(property, "location_type", "network");
+				putSafe(property, "network_type", state.networkType);
+				JSONObject location = new JSONObject();
+				putSafe(location, "longitude", "-84.38707806563191");
+				putSafe(location, "latitude", "33.81981981981982");
+				putSafe(property, "location", location);
+				putSafe(property, "is_battery_charging", (battery.plugged > 0) ? "true" : "false");
+				putSafe(property, "battery_level", battery.level);
+				putSafe(property, "app_version", "MySpeedTest");
+				putSafe(property, "device_id", deviceId);
+				putSafe(property, "dn_resolvability", "NA");
+				//        "os_version": "INCREMENTAL:I545VRUAME7, RELEASE:4.2.2, SDK_INT:17",
+				putSafe(property, "os_version", "INCREMENTAL:I545VRUAME7, RELEASE:4.2.2, SDK_INT:17");
+				putSafe(property, "timestamp", time);
+				putSafe(property, "ip_connectivity", "NA");
+				putSafe(property, "carrier", device.networkName);
+				putSafe(property, "rssi", network.signalStrength);
+				
+				// Value
+				putSafe(value, "testing", "myspeedtest");
+				
+			} catch (Exception e) {
+				System.out.println(e.getLocalizedMessage());
+			}
+			
+			putSafe(obj,"timestamp", time);
+			putSafe(obj,"values", value);
+			putSafe(obj,"task_key","null");
+			putSafe(obj,"devide_id", deviceId);
+			putSafe(obj,"properties", property);
+			putSafe(obj,"parameters", parameter);
+			putSafe(obj,"type", "ping");
+			putSafe(obj,"success", "true");
+
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return obj;
+	}
 
 	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();
-
 		try {
 			putSafe(obj,"time", time);	
 			putSafe(obj,"localtime",localTime);
 			putSafe(obj,"deviceid", SHA1Util.SHA1(deviceId));
-
 			JSONArray array = new JSONArray();
 			try{
 				for(Ping p: pings){
@@ -206,59 +325,54 @@ public class Measurement implements MainModel{
 				}
 			}
 			catch(Exception e){
-
 			}
-
 			putSafe(obj,"pings", array);
-
 			JSONArray tmparray = new JSONArray();
 			try{
 				for(LastMile p: lastMiles){
 					tmparray.put(p.toJSON());
 				}
-
 			}
-			catch(Exception e)
-			{
-
+			catch(Exception e) {
 			}
-
 			putSafe(obj,"lastmiles", tmparray);
-
-
-
 			JSONArray array2 = new JSONArray();
 			for(Screen s: screens){
 				array2.put(s.toJSON());
 			}
-
-			putSafe(obj,"screens", array2);
-
-			putSafe(obj,"device",device.toJSON());
-			putSafe(obj,"throughput",throughput.toJSON());
-			putSafe(obj,"gps",gps.toJSON());
-			putSafe(obj,"battery", battery.toJSON());
-			putSafe(obj,"usage",usage.toJSON());
-			putSafe(obj,"network",network.toJSON());
-			putSafe(obj,"warmup_experiment",warmupExperiment.toJSON());
-			putSafe(obj,"sim",sim.toJSON());
+			if (screens != null) 
+				putSafe(obj,"screens", array2);
+			if (device != null)
+				putSafe(obj,"device",device.toJSON());
+			if (throughput != null)
+				putSafe(obj,"throughput",throughput.toJSON());
+			if (gps != null)
+				putSafe(obj,"gps",gps.toJSON());
+			if (battery != null)
+				putSafe(obj,"battery", battery.toJSON());
+			if (usage != null) 
+				putSafe(obj,"usage",usage.toJSON());
+			if (network != null)		
+				putSafe(obj,"network",network.toJSON());
+			if (warmupExperiment != null) 
+				putSafe(obj,"warmup_experiment",warmupExperiment.toJSON());
+			if (sim != null) 
+				putSafe(obj,"sim",sim.toJSON());
 			if(wifi!=null)
 				putSafe(obj,"wifi", wifi.toJSON());
-
-			putSafe(obj,"state",state.toJSON());
+			if (state != null) 
+				putSafe(obj,"state",state.toJSON());
 			if(isManual)
 				putSafe(obj, "isManual", 1);
 			else
 				putSafe(obj, "isManual", 0);
 			if(loss!=null)
 				putSafe(obj, "loss", loss.toJSON());
-			
 			if(ipdv!=null)
 				putSafe(obj, "delay_variation", ipdv.toJSON());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return obj;
 	}
 
