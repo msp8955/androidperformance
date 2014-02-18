@@ -376,7 +376,7 @@ public class Checkin {
 			// Logger.i("checkGetCookie called too early");
 			return false;
 		}
-		while(getCookieFuture.isDone());
+		while(!getCookieFuture.isDone());
 		if (getCookieFuture.isDone()) {
 			try {
 				authCookie = getCookieFuture.get();

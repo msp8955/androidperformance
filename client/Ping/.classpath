@@ -9,5 +9,6 @@
 	<classpathentry exported="true" kind="lib" path="Third-Party/commons-net-3.0.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="Third-Party/gson-2.2.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="Third-Party/myjson-1.7.1.jar"/>
+	<classpathentry kind="lib" path="libs/mobilyzer.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
