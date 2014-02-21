@@ -98,7 +98,7 @@ public class AnalysisActivity extends TrackedActivity {
 					}
 
 				}, R.drawable.throughput)));
-		if (session.DEBUG == true) {
+//		if (session.DEBUG == true) {
 			cells.add(new Row(new ActivityItem("Application Usage",
 					"Get data breakdown by app", new Handler() {
 
@@ -111,7 +111,7 @@ public class AnalysisActivity extends TrackedActivity {
 						}
 
 					}, R.drawable.usage)));
-		}
+//		}
 		cells.add(new Row(new ActivityItem("Latency",
 				"Get time to reach server, 5 sec", new Handler() {
 					public void handleMessage(Message msg) {
