@@ -29,7 +29,6 @@ import com.num.models.WarmupExperiment;
 import com.num.models.Wifi;
 import com.num.utils.CommandLineUtil;
 import com.num.utils.ThroughputUtil;
-import com.mobilyzer.api.API;
 
 public class ThroughputHelper {
 	
@@ -44,10 +43,12 @@ public class ThroughputHelper {
 	 * @return
 	 */
 	public static Throughput getThroughput(Context context, ResponseListener responseListener) {
+		ThroughputUtil tu = new ThroughputUtil(context);
 		listener = responseListener;
 		t = new Throughput();
+		
 		try {
-			Link up=ThroughputUtil.uplinkmeasurement(context,new ThroughputListener());
+			Link up=tu.uplinkmeasurement(context,new ThroughputListener());
 			t.setUpLink(up);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
@@ -57,7 +58,7 @@ public class ThroughputHelper {
 			e.printStackTrace();
 		}
 		try {
-			Link down=ThroughputUtil.downlinkmeasurement(context,new ThroughputListener());
+			Link down=tu.downlinkmeasurement(context,new ThroughputListener());
 			t.setDownLink(down);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

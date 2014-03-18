@@ -4,7 +4,7 @@
     android:versionCode="328"
     android:versionName="3.2.8" >
 
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk android:minSdkVersion="9" />
   	<uses-permission android:name="android.permission.GET_ACCOUNTS" >
     </uses-permission>
   	<uses-permission android:name="android.permission.USE_CREDENTIALS" >

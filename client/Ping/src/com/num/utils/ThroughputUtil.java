@@ -11,21 +11,87 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.UnknownHostException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Parcelable;
 import android.util.Log;
 
+import com.mobilyzer.MeasurementResult;
+import com.mobilyzer.MeasurementTask;
+import com.mobilyzer.UpdateIntent;
+import com.mobilyzer.api.API;
+import com.mobilyzer.exceptions.MeasurementError;
+import com.mobilyzer.measurements.TCPThroughputTask;
+import com.mobilyzer.measurements.TCPThroughputTask.TCPThroughputDesc;
 import com.num.Values;
 import com.num.listeners.ResponseListener;
 import com.num.models.Link;
 import com.num.models.Throughput;
+import com.num.tasks.ThroughputTask;
 
 
 
 public class ThroughputUtil {
 	
+	private static boolean up_done = false;
+	private static boolean down_done = false;
+	private static Link uplink;
+	private static Link downlink;
 	static long responseListenerUpdateFrequency = 800;
+	private static BroadcastReceiver broadcastReceiver;
+	private static API mobilyzer;
+	
+	public ThroughputUtil(Context context){
+		mobilyzer = API.getAPI(context, "My Speed Test");
+		IntentFilter filter = new IntentFilter();
+        filter.addAction(mobilyzer.userResultAction);
+		broadcastReceiver = new BroadcastReceiver(){
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				String throughputJSON = "";
+				TCPThroughputDesc desc = null;
+				Parcelable[] parcels =
+			            intent.getParcelableArrayExtra(UpdateIntent.RESULT_PAYLOAD);
+			        MeasurementResult[] results = null;
+			        if ( parcels != null ) {
+			          results = new MeasurementResult[parcels.length];
+			          for ( int i = 0; i < results.length; i++ ) {
+			            results[i] = (MeasurementResult) parcels[i];
+			            throughputJSON = results[i].getValues().get("tcp_speed_results");
+			            desc = (TCPThroughputDesc) results[i].getMeasurementDesc();
+				        long tp = (long) (desc.calMedianSpeedFromTCPThroughputOutput(throughputJSON));
+				        if(desc.dir_up){
+					        uplink = new Link();
+					        uplink.setCount(1);
+					        uplink.setMessage_size(tp);
+					        uplink.setDstIp(desc.target);
+					        uplink.setDstPort(""+TCPThroughputTask.PORT_UPLINK);
+					        uplink.setTime(desc.duration_period_sec);
+					        up_done = true;
+				        }
+				        else{
+				        	downlink = new Link();
+				        	downlink.setCount(1);
+				        	downlink.setMessage_size(tp);
+				        	downlink.setDstIp(desc.target);
+				        	downlink.setDstPort(""+TCPThroughputTask.PORT_UPLINK);
+				        	downlink.setTime(desc.duration_period_sec);
+				        	down_done = true;
+				          }
+			          }
+			        }
+			}
+		};
+		context.registerReceiver(broadcastReceiver, filter);
+	}
 	
 	public static String generateRandom()
 	{
@@ -40,7 +106,36 @@ public class ThroughputUtil {
 	
 	public static Link uplinkmeasurement(Context context, ResponseListener responseListener) throws UnknownHostException, IOException
 	{
-		Values session = (Values) context.getApplicationContext();
+		MeasurementTask task = null;
+		Map<String, String> params = new HashMap<String, String>();
+        int priority = MeasurementTask.USER_PRIORITY;
+        Date endTime = null;
+        int contextIntervalSec = 1;
+        params.put("dir_up", "true");
+		try {
+			task = mobilyzer.createTask(API.TaskType.TCPTHROUGHPUT, Calendar.getInstance().getTime(),
+					endTime, 120, 1, priority, contextIntervalSec, params);
+			mobilyzer.submitTask(task);
+		} catch (MeasurementError e) {
+			uplink = new Link();
+			uplink.setCount(1);
+			uplink.setMessage_size(0);
+			uplink.setTime(1);
+			uplink.setDstIp("Unknown");
+			uplink.setDstPort("Unknown");
+			return uplink;
+		}
+		while(up_done == false){
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		responseListener.onUpdateUpLink(uplink);
+		up_done = false;
+		return uplink;
+		/*Values session = (Values) context.getApplicationContext();
 		DeviceUtil device = new DeviceUtil();
 		String countrycode = device.getNetworkCountry(context);
 		String serveraddress= session.THROUGHPUT_SERVER_ADDRESS;
@@ -128,13 +223,40 @@ public class ThroughputUtil {
 		in.close();
 		uplinkclient.close();
 		
-		return link;
+		return link;*/
 	}
 
 	public static Link downlinkmeasurement(Context context, ResponseListener responseListener) throws IOException
 	{
-		
-		Values session = (Values) context.getApplicationContext();
+		MeasurementTask task = null;
+		Map<String, String> params = new HashMap<String, String>();
+        int priority = MeasurementTask.USER_PRIORITY;
+        Date endTime = null;
+        int contextIntervalSec = 1;		
+		try {
+			task = mobilyzer.createTask(API.TaskType.TCPTHROUGHPUT, Calendar.getInstance().getTime(),
+					endTime, 120, 1, priority, contextIntervalSec, params);
+			mobilyzer.submitTask(task);
+		} catch (MeasurementError e) {
+			downlink = new Link();
+			downlink.setCount(1);
+			downlink.setMessage_size(0);
+			downlink.setTime(1);
+			downlink.setDstIp("Unknown");
+			downlink.setDstPort("Unknown");
+			return downlink;
+		}
+		while(down_done == false){
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		responseListener.onUpdateDownLink(downlink);
+		down_done = false;
+		return downlink;
+		/*Values session = (Values) context.getApplicationContext();
 		DeviceUtil device = new DeviceUtil();
 		String countrycode = device.getNetworkCountry(context);
 		String serveraddress=session.THROUGHPUT_SERVER_ADDRESS;
@@ -224,7 +346,7 @@ public class ThroughputUtil {
 		out.close();
 		in.close();
 		downlinkclient.close();
-		return link;
+		return link;*/
 	}
 
 }

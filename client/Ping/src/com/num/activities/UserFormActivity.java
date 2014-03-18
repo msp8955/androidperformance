@@ -105,7 +105,7 @@ public class UserFormActivity extends TrackedActivity
 		setContentView(R.layout.userform_screen);
 
 
-		String[] limit_text = {"Dont have one","Dont know","250 MB","500 MB","750 MB","1 GB","2 GB","More than 2GB"};
+		String[] limit_text = {"Don't have one","Dont know","250 MB","500 MB","750 MB","1 GB","2 GB","More than 2GB"};
 		
 		
 
