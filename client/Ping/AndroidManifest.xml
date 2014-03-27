@@ -153,6 +153,10 @@
             android:name="com.num.activities.BillingCostActivity"
             android:label="@string/title_activity_billing_cost" >
         </activity>
+        <activity
+            android:name="com.num.activities.MainActivity"
+            android:label="@string/title_activity_main" >
+        </activity>
     </application>
 
 </manifest>

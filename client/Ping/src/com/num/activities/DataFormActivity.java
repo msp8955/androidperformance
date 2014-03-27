@@ -1,59 +1,18 @@
 package com.num.activities;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TableLayout.LayoutParams;
-import android.widget.TextView;
-
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
-import com.num.Values;
-import com.num.helpers.ServiceHelper;
-import com.num.helpers.ThreadPoolHelper;
 import com.num.helpers.UserDataHelper;
-import com.num.listeners.BaseResponseListener;
-import com.num.listeners.ResponseListener;
-import com.num.models.Battery;
-import com.num.models.Device;
-import com.num.models.GPS;
-import com.num.models.Measurement;
-import com.num.models.Model;
-import com.num.models.Network;
-import com.num.models.Ping;
-import com.num.models.Row;
-import com.num.models.Sim;
-import com.num.models.Throughput;
-import com.num.models.Usage;
-import com.num.models.Wifi;
-import com.num.tasks.InstallBinariesTask;
-import com.num.tasks.MeasurementTask;
-import com.num.tasks.SummaryTask;
-import com.num.ui.UIUtil;
-import com.num.ui.adapter.ItemAdapter;
-import com.num.utils.PreferencesUtil;
 import com.num.R;
 
 
@@ -64,8 +23,6 @@ public class DataFormActivity extends TrackedActivity
 	//private TableLayout table;
 
 	private Activity activity;
-
-	private Values session = null;
 
 	private Button saveButton;
 	private RadioGroup rGroup;
@@ -135,7 +92,7 @@ public class DataFormActivity extends TrackedActivity
 
 		finish();
 		if(!force){
-			Intent myIntent = new Intent(this, AnalysisActivity.class);
+			Intent myIntent = new Intent(this, MainActivity.class);
 			startActivity(myIntent);
 		}
 
@@ -157,7 +114,7 @@ public class DataFormActivity extends TrackedActivity
 
 				finish();
 				if(!force){
-					Intent myIntent = new Intent(v.getContext(), AnalysisActivity.class);
+					Intent myIntent = new Intent(v.getContext(), MainActivity.class);
 					startActivity(myIntent);
 				}
 

@@ -93,7 +93,7 @@
                     </RelativeLayout>
 
                     <ListView
-                        android:id="@+id/listview"
+                        android:id="@+id/main_list_view"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:listSelector="@android:color/transparent" >

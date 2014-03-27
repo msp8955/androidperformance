@@ -40,7 +40,7 @@ public class BillingCostActivity extends Activity {
 		//Skip if data is already present
 		if(!force && PreferencesUtil.contains("billingCost", this)){
 			finish();
-			Intent myIntent = new Intent(this, AnalysisActivity.class);
+			Intent myIntent = new Intent(this, MainActivity.class);
 			startActivity(myIntent);
 		}
 		
@@ -60,11 +60,12 @@ public class BillingCostActivity extends Activity {
 				curr = currency[wheel.getCurrentItem()];
 				userhelp.setCurrency(curr);
 				String cost = costInput.getText().toString();
+				if(cost==null) return;
 				userhelp.setBillingCost(cost);
 				finish();
 				Intent myIntent;
 				if(force){
-					myIntent = new Intent(v.getContext(), DataFormActivity.class);					
+					myIntent = new Intent(v.getContext(), SettingsActivity.class);					
 				}
 				else{
 					myIntent = new Intent(v.getContext(), DataFormActivity.class);
@@ -76,11 +77,12 @@ public class BillingCostActivity extends Activity {
 		skipButton.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				userhelp.setCurrency("USD");
-				userhelp.setBillingCost("-1");
+				if(!PreferencesUtil.contains("currency", BillingCostActivity.this))
+					userhelp.setBillingCost("-1");
 				finish();
 				Intent myIntent;
 				if(force){
-					myIntent = new Intent(v.getContext(), DataFormActivity.class);					
+					myIntent = new Intent(v.getContext(), SettingsActivity.class);			
 				}
 				else{
 					myIntent = new Intent(v.getContext(), DataFormActivity.class);
@@ -97,36 +99,4 @@ public class BillingCostActivity extends Activity {
 		getMenuInflater().inflate(R.menu.billing_cost, menu);
 		return true;
 	}
-
-/*	private class CurrencyAdapter extends AbstractWheelTextAdapter {
-        // Countries names
-        private String countries[] =
-            new String[] {"USA", "Canada", "Ukraine", "France"};
-        // Countries flags
-        private int flags[] =
-            new int[] {};
-            
-        protected CurrencyAdapter(Context context) {
-            super(context, R.layout.country_layout, NO_RESOURCE);
-            setItemTextResource(R.id.country_name);
-        }
-
-        @Override
-        public View getItem(int index, View cachedView, ViewGroup parent) {
-            View view = super.getItem(index, cachedView, parent);
-            ImageView img = (ImageView) view.findViewById(R.id.flag);
-            img.setImageResource(flags[index]);
-            return view;
-        }
-        
-        @Override
-        public int getItemsCount() {
-            return countries.length;
-        }
-        
-        @Override
-        protected CharSequence getItemText(int index) {
-            return countries[index];
-        }
-    }*/
 }

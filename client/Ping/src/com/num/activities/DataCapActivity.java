@@ -41,7 +41,7 @@ public class DataCapActivity extends Activity {
 		//Skip if data is already present
 		if(!force && PreferencesUtil.contains("dataLimit", this)){
 			finish();
-			Intent myIntent = new Intent(this, AnalysisActivity.class);
+			Intent myIntent = new Intent(this, MainActivity.class);
 			startActivity(myIntent);
 		}
 		
@@ -68,7 +68,7 @@ public class DataCapActivity extends Activity {
 				finish();
 				Intent myIntent;
 				if(force){
-					myIntent = new Intent(v.getContext(), DataFormActivity.class);					
+					myIntent = new Intent(v.getContext(), SettingsActivity.class);					
 				}
 				else{
 					myIntent = new Intent(v.getContext(), BillingCycleActivity.class);

@@ -3,81 +3,49 @@ package com.num.activities;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.apps.analytics.easytracking.TrackedActivity;
+import com.num.R;
 import com.num.Values;
 import com.num.database.DatabasePicker;
-import com.num.database.datasource.ApplicationDataSource;
 import com.num.database.datasource.LatencyDataSource;
-import com.num.database.mapping.ApplicationMapping;
 import com.num.database.mapping.LatencyMapping;
 import com.num.helpers.GAnalytics;
 import com.num.helpers.ServiceHelper;
 import com.num.helpers.ThreadPoolHelper;
-import com.num.listeners.BaseResponseListener;
 import com.num.listeners.FakeListener;
 import com.num.models.ActivityItem;
-import com.num.models.Battery;
-import com.num.models.ClientLog;
-import com.num.models.Device;
-import com.num.models.GPS;
-import com.num.models.Measurement;
-import com.num.models.Network;
-import com.num.models.Ping;
 import com.num.models.Row;
-import com.num.models.Sim;
-import com.num.models.Throughput;
-import com.num.models.Usage;
-import com.num.models.Wifi;
-import com.num.tasks.MeasurementTask;
 import com.num.tasks.SignalStrengthTask;
-import com.num.tasks.SummaryTask;
 import com.num.tasks.ValuesTask;
 import com.num.ui.UIUtil;
 import com.num.ui.adapter.ItemAdapter;
 import com.num.utils.DeviceUtil;
-import com.num.R;
 
-public class AnalysisActivity extends TrackedActivity {
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.view.Menu;
+import android.widget.ListView;
 
+@SuppressLint("HandlerLeak")
+public class MainActivity extends Activity {
 	private ListView listview;
-	private TextView apptext;
-	private TextView devicetext;
 	// private TextView tv;
 	private Activity activity;
 	private ThreadPoolHelper serverhelper;
 	private Values session = null;
-
+	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-
+	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		setContentView(R.layout.measurement_screen);
+		setContentView(R.layout.activity_main);
 		
 		activity = this;
 		session = (Values) getApplicationContext();
 		session.loadValues();
-		listview = (ListView) findViewById(R.id.listview);
+		listview = (ListView) findViewById(R.id.main_list_view);
 
 		serverhelper = new ThreadPoolHelper(10, 30);
 
@@ -98,20 +66,15 @@ public class AnalysisActivity extends TrackedActivity {
 					}
 
 				}, R.drawable.throughput)));
-//		if (session.DEBUG == true) {
-			cells.add(new Row(new ActivityItem("Application Usage",
-					"Get data breakdown by app", new Handler() {
-
-						public void handleMessage(Message msg) {
-							Intent myIntent = new Intent(activity,
-									FullDisplayActivity.class);
-							myIntent.putExtra("model_key", "usage");
-							startActivity(myIntent);
-
-						}
-
-					}, R.drawable.usage)));
-//		}
+		cells.add(new Row(new ActivityItem("Application Usage",
+				"Get data breakdown by app", new Handler() {
+					public void handleMessage(Message msg) {
+						Intent myIntent = new Intent(activity,
+								FullDisplayActivity.class);
+						myIntent.putExtra("model_key", "usage");
+						startActivity(myIntent);
+					}
+				}, R.drawable.usage)));
 		cells.add(new Row(new ActivityItem("Latency",
 				"Get time to reach server, 5 sec", new Handler() {
 					public void handleMessage(Message msg) {
@@ -189,14 +152,13 @@ public class AnalysisActivity extends TrackedActivity {
 					"Signal Strength debugging", new Handler() {
 						public void handleMessage(Message msg) {
 							ThreadPoolHelper serverhelper = new ThreadPoolHelper(
-									session.THREADPOOL_MAX_SIZE,
-									session.THREADPOOL_KEEPALIVE_SEC);
+									Values.THREADPOOL_MAX_SIZE,
+									Values.THREADPOOL_KEEPALIVE_SEC);
 							serverhelper.executeOnUIThread(activity,
 									new SignalStrengthTask(activity,
 											new HashMap<String, String>(),
 											new FakeListener()));
 						}
-
 					}, R.drawable.team)));
 		}
 
@@ -207,6 +169,13 @@ public class AnalysisActivity extends TrackedActivity {
 		itemadapter.notifyDataSetChanged();
 		UIUtil.setListViewHeightBasedOnChildren(listview, itemadapter);
 
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
 	}
 
 }

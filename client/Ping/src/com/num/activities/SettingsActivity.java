@@ -1,96 +1,92 @@
 package com.num.activities;
 
-import android.app.AlertDialog;
-import android.app.ListActivity;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.InputType;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
-
+import java.util.ArrayList;
 import com.num.R;
-import com.num.helpers.UserDataHelper;
+import com.num.Values;
+import com.num.helpers.ServiceHelper;
+import com.num.helpers.ThreadPoolHelper;
+import com.num.listeners.FakeListener;
+import com.num.models.ActivityItem;
+import com.num.models.Row;
+import com.num.tasks.ValuesTask;
+import com.num.ui.UIUtil;
+import com.num.ui.adapter.ItemAdapter;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.view.Menu;
+import android.widget.ListView;
 
-public class SettingsActivity extends ListActivity {
-	private UserDataHelper userhelp;
-	private boolean force = false;
-	private static final String[] SETTINGS = new String[] {"Edit data plan", "Edit monthly billing cycle end date", "Edit monthly billing cost"};
-	private int[] limit_val= {-1,0,250,500,750,1000,2000,9999};
-	private String[] limit_text = {"Don't have one","Don't know","250 MB","500 MB","750 MB","1 GB","2 GB","More than 2GB"};
+@SuppressLint("HandlerLeak")
+public class SettingsActivity extends Activity {
+	private ListView listview;
+	private Activity activity;
+	private ThreadPoolHelper serverhelper;
+	private Values session = null;
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_settings);
+		
+		activity = this;
+		session = (Values) getApplicationContext();
+		session.loadValues();
+		listview = (ListView) findViewById(R.id.settings_list_view);
+
+		serverhelper = new ThreadPoolHelper(10, 30);
+
+		serverhelper.execute(new ValuesTask(this, new FakeListener()));
+		ServiceHelper.processRestartService(this);
+		ArrayList<Row> cells = new ArrayList<Row>();
+
+		cells.add(new Row(new ActivityItem("Choose Data Cap",
+				"Choose how much data you get by cycle", new Handler() {
+					public void handleMessage(Message msg) {
+						Intent myIntent = new Intent(activity,
+								DataCapActivity.class);
+						myIntent.putExtra("force", true);
+						startActivity(myIntent);
+					}
+				}, R.drawable.throughput)));
+		
+		cells.add(new Row(new ActivityItem("Choose Monthly Price",
+				"Choose how much you pay by month", new Handler() {
+					public void handleMessage(Message msg) {
+						Intent myIntent = new Intent(activity,
+								BillingCostActivity.class);
+						myIntent.putExtra("force", true);
+						startActivity(myIntent);
+					}
+				}, R.drawable.price)));
+		
+		cells.add(new Row(new ActivityItem("Choose Billing Cycle",
+				"Choose when your billing cycle begins", new Handler() {
+					public void handleMessage(Message msg) {
+						Intent myIntent = new Intent(activity,
+								BillingCycleActivity.class);
+						myIntent.putExtra("force", true);
+						startActivity(myIntent);
+					}
+				}, R.drawable.date)));
+
+		ItemAdapter itemadapter = new ItemAdapter(activity, cells);
+		for (Row cell : cells)
+			itemadapter.add(cell);
+		listview.setAdapter(itemadapter);
+		itemadapter.notifyDataSetChanged();
+		UIUtil.setListViewHeightBasedOnChildren(listview, itemadapter);
+
+	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setListAdapter(new ArrayAdapter<String>(this, R.layout.settings_row,SETTINGS));
-		Bundle extras = getIntent().getExtras();
-		userhelp = new UserDataHelper(this);
-		try{
-			force = extras.getBoolean("force");
-		}
-		catch (Exception e){
-			force = false;
-		}
-		if(!force && userhelp.isFilled()){
-			finish();
-			Intent myIntent = new Intent(SettingsActivity.this, AnalysisActivity.class);
-			startActivity(myIntent);
-		}
-		ListView listView = getListView();
-		listView.setTextFilterEnabled(true);
-		
-		listView.setOnItemClickListener(new OnItemClickListener(){
-			public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-				switch(pos){
-					case 0:
-						AlertDialog.Builder dialog1 = new AlertDialog.Builder(SettingsActivity.this);
-						dialog1.setTitle(SETTINGS[pos]);
-						dialog1.setCancelable(false);
-						dialog1.setItems(limit_text, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int pos) {
-								userhelp.setDataCap(limit_val[pos]);
-								dialog.dismiss();
-							}
-						});
-						dialog1.show();
-						break;
-					case 1:
-						AlertDialog.Builder dialog2 = new AlertDialog.Builder(SettingsActivity.this);
-						final EditText cycle_date = new EditText(SettingsActivity.this);
-						cycle_date.setInputType(InputType.TYPE_CLASS_NUMBER);
-						dialog2.setView(cycle_date);
-						dialog2.setTitle(SETTINGS[pos]);
-						dialog2.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {	
-							public void onClick(DialogInterface dialog, int pos) {
-								userhelp.setBillingCycle(Integer.parseInt(cycle_date.getText().toString()));
-								dialog.dismiss();
-							}
-						});
-						dialog2.setCancelable(false);
-						dialog2.show();
-						break;
-					case 2:
-						AlertDialog.Builder dialog3 = new AlertDialog.Builder(SettingsActivity.this);
-						final EditText bill_cost = new EditText(SettingsActivity.this);
-						bill_cost.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL|InputType.TYPE_CLASS_NUMBER);
-						dialog3.setView(bill_cost);
-						dialog3.setTitle(SETTINGS[pos]);
-						dialog3.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {	
-							public void onClick(DialogInterface dialog, int pos) {
-								userhelp.setBillingCost(bill_cost.getText().toString());
-								dialog.dismiss();
-							}
-						});
-						dialog3.setCancelable(false);
-						dialog3.show();
-						break;
-				}
-			}
-		});
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
 	}
+
 }

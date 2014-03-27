@@ -7,9 +7,12 @@
     <string name="title_activity_data_cap">CHOOSE DATA LIMIT</string>
     <string name="title_activity_billing_cycle">CHOOSE BILLING CYCLE</string>
     <string name="title_activity_billing_cost">CHOOSE BILLING COST</string>
+    <string name="title_activity_main">MEASUREMENT</string>
+    <string name="title_activity_settings">SETTINGS</string>
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
     <string name="skip">Skip</string>
+    <string name="cancel">Cancel</string>
     <string name="testButton">Full Test</string>
     <string name="pingButton">Latency</string>
     <string name="wifiButton">Wifi</string>

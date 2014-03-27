@@ -35,7 +35,7 @@ public class DisplayActivity extends TrackedActivity {
 		
 		
 		title =  (TextView) findViewById(R.id.start_title);
-		listview = (ListView) findViewById(R.id.listview);
+		listview = (ListView) findViewById(R.id.main_list_view);
 		//imageview = (ImageView) findViewById(R.id.image);
 		description = (TextView) findViewById(R.id.description);
 		

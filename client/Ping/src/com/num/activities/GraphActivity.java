@@ -98,7 +98,7 @@ public class GraphActivity extends TrackedActivity {
 			chart = (ChartView) this.findViewById(R.id.barchart);
 		}
 		load = (ProgressBar) this.findViewById(R.id.load);
-		listview = (ListView) findViewById(R.id.listview);
+		listview = (ListView) findViewById(R.id.main_list_view);
 		chart.setPicker(picker);
 		title.setText(picker.getTitle());
 
