@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.num.helpers.UserDataHelper;
 import com.num.utils.SHA1Util;
@@ -162,13 +163,15 @@ public class Device implements MainModel {
 			obj.putOpt("networkCountry", networkCountry);
 			obj.putOpt("networkName", networkName);
 			try{
-			if(getContext()!=null){
-				
-				UserDataHelper userhelp = new UserDataHelper(getContext());
-
-				obj.putOpt("datacap",userhelp.getDataCap());
-				obj.putOpt("billingcycle",userhelp.getBillingCycle());
-			}
+				if(getContext()!=null){
+					
+					UserDataHelper userhelp = new UserDataHelper(getContext());
+	
+					obj.putOpt("datacap",userhelp.getDataCap());
+					obj.putOpt("billingcycle",userhelp.getBillingCycle());
+					obj.putOpt("currency", userhelp.getCurrency());
+					obj.putOpt("billingprice", userhelp.getBillingCost());
+				}
 			}
 			catch (Exception e){
 				

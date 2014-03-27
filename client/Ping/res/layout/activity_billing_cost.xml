@@ -45,19 +45,20 @@
 
             <kankan.wheel.widget.WheelView
                 android:id="@+id/billing_cost_wheel"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="300dp"
                 android:layout_weight="0.2" />
 
             <EditText
                 android:id="@+id/billing_cost_input"
-                android:layout_gravity="center_vertical"
                 android:layout_width="300dip"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="0.8"
                 android:ems="10"
-                android:inputType="numberDecimal"
+                android:inputType="number"
                 android:textSize="48sp" />
+
         </LinearLayout>
 
     </RelativeLayout>

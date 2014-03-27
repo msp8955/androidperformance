@@ -66,7 +66,8 @@ public class BillingCycleActivity extends Activity {
 				finish();
 				Intent myIntent;
 				if(force){
-					myIntent = new Intent(v.getContext(), SettingsActivity.class);					
+					finishActivity(0);
+					return;					
 				}
 				else{
 					myIntent = new Intent(v.getContext(), BillingCostActivity.class);

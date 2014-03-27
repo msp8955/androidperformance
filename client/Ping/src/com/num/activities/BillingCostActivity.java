@@ -10,6 +10,7 @@ import com.num.utils.PreferencesUtil;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -56,39 +57,41 @@ public class BillingCostActivity extends Activity {
 		wheel.setViewAdapter(adapter);
 		saveButton.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
-				String curr;
-				curr = currency[wheel.getCurrentItem()];
+				String text = costInput.getText().toString();
+				if(text.length()==0) return;
+				int cost = Integer.parseInt(text);
+				String curr = currency[wheel.getCurrentItem()];
 				userhelp.setCurrency(curr);
-				String cost = costInput.getText().toString();
-				if(cost==null) return;
 				userhelp.setBillingCost(cost);
+				Log.d("Debug",""+userhelp.getBillingCost());
 				finish();
-				Intent myIntent;
 				if(force){
-					myIntent = new Intent(v.getContext(), SettingsActivity.class);					
+					finishActivity(0);
+					return;
 				}
 				else{
-					myIntent = new Intent(v.getContext(), DataFormActivity.class);
+					Intent myIntent = new Intent(v.getContext(), DataFormActivity.class);
+					myIntent.putExtra("force", force);
+					startActivity(myIntent);
 				}
-				myIntent.putExtra("force", force);
-				startActivity(myIntent);
 			}
 		});
 		skipButton.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
-				userhelp.setCurrency("USD");
 				if(!PreferencesUtil.contains("currency", BillingCostActivity.this))
-				userhelp.setBillingCost("-1");
+					userhelp.setCurrency("USD");
+				if(!PreferencesUtil.contains("billingCost", BillingCostActivity.this))
+					userhelp.setBillingCost(-1);
 				finish();
-				Intent myIntent;
 				if(force){
-					myIntent = new Intent(v.getContext(), SettingsActivity.class);			
+					finishActivity(0);
+					return;		
 				}
 				else{
-					myIntent = new Intent(v.getContext(), DataFormActivity.class);
+					Intent myIntent = new Intent(v.getContext(), DataFormActivity.class);
+					myIntent.putExtra("force", force);
+					startActivity(myIntent);
 				}
-				myIntent.putExtra("force", force);
-				startActivity(myIntent);
 			}
 		});
 	}

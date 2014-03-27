@@ -2,12 +2,7 @@ package com.num.listeners;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.json.JSONObject;
-
-import android.net.wifi.ScanResult;
 
 import com.num.models.Battery;
 import com.num.models.Device;
@@ -25,7 +20,6 @@ import com.num.models.TracerouteEntry;
 import com.num.models.Usage;
 import com.num.models.WarmupExperiment;
 import com.num.models.Wifi;
-import com.num.models.WifiNeighbor;
 
 
 public interface ResponseListener {

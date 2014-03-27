@@ -7,11 +7,13 @@ import com.num.*;
 import com.num.models.Measurement;
 import com.num.models.Screen;
 import com.num.utils.HTTPUtil;
+import com.num.utils.PreferencesUtil;
 import com.num.utils.SDCardFileReader;
 import com.num.mobiperf.*;
 
 import org.json.JSONObject;
 import android.content.Context;
+import android.util.Log;
 
 public class MeasurementHelper {
 
@@ -46,7 +48,10 @@ public class MeasurementHelper {
 			SDCardFileReader.saveData("measurement_last.txt",measurement.toJSON().toString());			
 		}
 		try {
+			;
 			object = measurement.toJSON();
+			//Log.d("Debug",PreferencesUtil.getDataString("billingCost", context)+" "+PreferencesUtil.getDataString("currency", context));
+			Log.d("Debug",""+measurement.getDevice().toJSON());
 		} catch (Exception e) {
 			e.printStackTrace();
 			GAnalytics.log(GAnalytics.MEASUREMENT, "Send Fail New",e.getMessage());

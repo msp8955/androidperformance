@@ -64,8 +64,8 @@ public class MeasurementTask extends ServerTask {
 		measurement.setManual(isManual);
 		this.listener = new MeasurementListener();
 		session = this.getValues();
-		serverhelper = new ThreadPoolHelper(session.THREADPOOL_MAX_SIZE,
-				session.THREADPOOL_KEEPALIVE_SEC);
+		serverhelper = new ThreadPoolHelper(Values.THREADPOOL_MAX_SIZE,
+				Values.THREADPOOL_KEEPALIVE_SEC);
 		this.throughput = throughput;
 	}
 
