@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.mobilyzer.MeasurementResult;
 import com.mobilyzer.MeasurementTask;
@@ -76,6 +77,7 @@ public class ThroughputUtil {
 					        uplink.setDstPort(""+TCPThroughputTask.PORT_UPLINK);
 					        uplink.setTime(desc.duration_period_sec);
 					        up_done = true;
+							Toast.makeText(context, "Uplink test to "+uplink.getDstIp()+" complete!", Toast.LENGTH_LONG).show();
 				        }
 				        else{
 				        	downlink = new Link();
@@ -85,6 +87,7 @@ public class ThroughputUtil {
 				        	downlink.setDstPort(""+TCPThroughputTask.PORT_UPLINK);
 				        	downlink.setTime(desc.duration_period_sec);
 				        	down_done = true;
+				        	Toast.makeText(context, "Downlink test to "+downlink.getDstIp()+" complete!", Toast.LENGTH_LONG).show();
 				          }
 			          }
 			        }
@@ -104,7 +107,7 @@ public class ThroughputUtil {
 		return message.toString();
 	}
 	
-	public static Link uplinkmeasurement(Context context, ResponseListener responseListener) throws UnknownHostException, IOException
+	public Link uplinkmeasurement(Context context, ResponseListener responseListener) throws UnknownHostException, IOException
 	{
 		MeasurementTask task = null;
 		Map<String, String> params = new HashMap<String, String>();
@@ -226,7 +229,7 @@ public class ThroughputUtil {
 		return link;*/
 	}
 
-	public static Link downlinkmeasurement(Context context, ResponseListener responseListener) throws IOException
+	public Link downlinkmeasurement(Context context, ResponseListener responseListener) throws IOException
 	{
 		MeasurementTask task = null;
 		Map<String, String> params = new HashMap<String, String>();

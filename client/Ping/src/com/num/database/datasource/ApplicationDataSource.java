@@ -8,36 +8,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
-
-import org.apache.http.cookie.SetCookie;
-
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-
 import com.num.database.DatabaseOutput;
 import com.num.database.mapping.ApplicationMapping;
-import com.num.database.mapping.BaseMapping;
 import com.num.database.mapping.LatencyMapping;
-import com.num.database.mapping.ThroughputMapping;
 import com.num.helpers.GAnalytics;
-import com.num.models.GraphData;
-
 import com.num.models.Application;
 import com.num.models.GraphPoint;
-import com.num.models.LastMile;
-import com.num.models.Link;
-import com.num.models.MainModel;
-import com.num.models.Measure;
 import com.num.models.Model;
-import com.num.models.Ping;
-import com.num.models.Throughput;
 import com.num.models.Usage;
-import com.num.utils.DeviceUtil;
 
 public class ApplicationDataSource extends DataSource {
 
@@ -233,7 +215,7 @@ public class ApplicationDataSource extends DataSource {
 
 	@Override
 	public Date extractTime(Map<String, String> data) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 		String dateString = data.get(LatencyMapping.COLUMN_TIME);
 		try {
 			return df.parse(dateString);

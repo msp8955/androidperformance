@@ -34,7 +34,7 @@ public class DisplayActivity extends TrackedActivity {
 		MainModel item = session.getModel(key);
 		
 		
-		title =  (TextView) findViewById(R.id.title);
+		title =  (TextView) findViewById(R.id.start_title);
 		listview = (ListView) findViewById(R.id.listview);
 		//imageview = (ImageView) findViewById(R.id.image);
 		description = (TextView) findViewById(R.id.description);

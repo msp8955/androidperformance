@@ -128,7 +128,7 @@ public class AnalysisActivity extends TrackedActivity {
 				new Handler() {
 					public void handleMessage(Message msg) {
 						Intent myIntent = new Intent(activity,
-								UserFormActivity.class);
+								SettingsActivity.class);
 						myIntent.putExtra("force", true);
 						startActivity(myIntent);
 					}

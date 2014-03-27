@@ -94,7 +94,8 @@ public class PingHelper {
 		String ipSrc = "";
 		try {
 			conn = new Socket("www.google.com", 80);
-			ipSrc = conn.getLocalAddress().toString(); 
+			ipSrc = conn.getLocalAddress().toString();
+			conn.close();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

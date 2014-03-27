@@ -84,7 +84,7 @@ public class FullDisplayActivity extends TrackedActivity {
 	
 	public void showDisplayPage() {
 		setContentView(R.layout.item_view_full);
-		title =  (TextView) findViewById(R.id.title);
+		title =  (TextView) findViewById(R.id.start_title);
 		listview = (ListView) findViewById(R.id.listview);	
 		description = (TextView) findViewById(R.id.description);
 	}

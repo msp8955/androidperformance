@@ -1,16 +1,14 @@
 package com.num.helpers;
 
 import com.num.activities.AboutUsActivity;
-import com.num.activities.UserFormActivity;
+import com.num.activities.DataCapActivity;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class MenuHelper {
 	
@@ -34,7 +32,7 @@ public class MenuHelper {
 		switch (item.getItemId()) {
 		case MENU_PERIODIC:
 			Log.v("menu", "DIALOG_PERIODIC");
-			Intent in1 = new Intent(activity, UserFormActivity.class);
+			Intent in1 = new Intent(activity, DataCapActivity.class);
 			in1.putExtra("force",true);
 			activity.startActivityForResult(in1, 0);
 			break;

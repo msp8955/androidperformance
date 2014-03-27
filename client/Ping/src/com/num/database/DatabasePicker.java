@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 
 import android.os.Handler;
 
@@ -53,7 +54,7 @@ public class DatabasePicker {
 	}
 
 	public void setTitle(String title) {
-		this.title = title.toUpperCase();
+		this.title = title.toUpperCase(Locale.getDefault());
 	}
 
 	public String getDescription() {
@@ -105,7 +106,7 @@ public class DatabasePicker {
 
 			if (displayOutlier) {
 
-				int originalSize = data.getPoints().size();
+				//int originalSize = data.getPoints().size();
 				int newSize = (int) (data.getPoints().size() * (1 - outlierFraction));
 				Collections.sort(data.getPoints());
 
@@ -166,7 +167,7 @@ public class DatabasePicker {
 	}
 
 	public void setOutlierOptions(float[] outlierOptions) {
-		outlierOptions = outlierOptions;
+		this.outlierOptions = outlierOptions;
 	}
 
 }

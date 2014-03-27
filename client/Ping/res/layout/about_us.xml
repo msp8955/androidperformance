@@ -17,7 +17,7 @@
             android:id="@+id/tagline"
             android:layout_width="fill_parent"
             android:layout_height="30dp"
-            android:layout_below="@+id/title"
+            android:layout_below="@+id/start_title"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
@@ -53,7 +53,7 @@
             android:paddingRight="15dp" >
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/data_plan_title"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"

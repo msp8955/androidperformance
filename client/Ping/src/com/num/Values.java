@@ -304,10 +304,10 @@ public class Values extends Application{
 	}
 
 	public void insertValues(JSONObject obj){
-		Iterator<String> iterate = obj.keys();
+		Iterator<?> iterate = obj.keys();
 
 		while(iterate.hasNext()){
-			String key = iterate.next();
+			String key = (String) iterate.next();
 
 			try {
 				String value = obj.getString(key);

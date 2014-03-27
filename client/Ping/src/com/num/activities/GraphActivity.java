@@ -90,7 +90,7 @@ public class GraphActivity extends TrackedActivity {
 	public void onStart() {
 		super.onStart();
 		
-		TextView title = (TextView) this.findViewById(R.id.title);
+		TextView title = (TextView) this.findViewById(R.id.start_title);
 		
 		if (picker.getChartType().equals("area"))
 			chart = (TimelineView) this.findViewById(R.id.timeline);

@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,7 +49,6 @@ public class PrivacyActivity extends TrackedActivity
 	
 	private Activity activity;
 	private ThreadPoolHelper serverhelper;
-	private Values session = null;
 	final String mimeType = "text/html";
 	private Button acceptButton;
 	private Button rejectButton;
@@ -65,24 +65,23 @@ public class PrivacyActivity extends TrackedActivity
 		Values session = (Values) this.getApplicationContext();
 		
 		if(!session.DEBUG&&PreferencesUtil.isAccepted(this)){
-
 			finish();
 			System.out.println("ACCEPT");
-			Intent myIntent = new Intent(this, UserFormActivity.class);
+			Intent myIntent = new Intent(this, DataCapActivity.class);
             startActivity(myIntent);
 		}
 		
-		setContentView(R.layout.privacy_screen);
+		setContentView(R.layout.activity_privacy);
 		
 		activity = this;
 				
 		serverhelper = new ThreadPoolHelper(5,10);
 		serverhelper.execute(new UrlTask(activity,new HashMap<String,String>(), "http://ruggles.gtnoise.net/static/Conditions_of_Use.html", new UrlListener()));
 
-		acceptButton = (Button) findViewById(R.id.accept);
-		rejectButton = (Button) findViewById(R.id.reject);
-		WebView webview = (WebView) findViewById(R.id.policyText);
-		webview.getSettings().setJavaScriptEnabled(true);
+		acceptButton = (Button) findViewById(R.id.privacy_accept_button);
+		rejectButton = (Button) findViewById(R.id.privacy_reject_button);
+		//WebView webview = (WebView) findViewById(R.id.policyText);
+		//webview.getSettings().setJavaScriptEnabled(true);
 		//webview.loadData("Conditions of Use<br>Welcome to our application - Network Usage Monitor! Team Network Usage Monitor provides this application to you subject to the following conditions. To use the application you must accept these conditions. Please read them carefully.<br>PRIVACY<br>Please review our Privacy Policy, which explains the data displayed and collected from your device and its uses.",mimeType,null);
 		//webview.loadUrl("http://ruggles.gtnoise.net/static/Conditions_of_Use.html");
 		
@@ -97,7 +96,7 @@ public class PrivacyActivity extends TrackedActivity
 				finish();
 				PreferencesUtil.acceptConditions(activity);
 				
-				Intent myIntent = new Intent(v.getContext(), TourActivity.class);
+				Intent myIntent = new Intent(v.getContext(), DataCapActivity.class);
                 startActivity(myIntent);
 				
 			}
@@ -109,20 +108,20 @@ public class PrivacyActivity extends TrackedActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
         super.onActivityResult(requestCode, resultCode, intent);
         if (intent!=null){
-	        Bundle extras = intent.getExtras();
-	        //tv.setText(extras!=null ? extras.getString("returnKey") : "empty");
+	        intent.getExtras();
         }
     }
 	
 
+	@SuppressLint("HandlerLeak")
 	private Handler UrlHandler = new Handler() {
 		public void  handleMessage(Message msg) {
 			try {
 				String data = (String)msg.obj;
-				ProgressBar pb = (ProgressBar) findViewById(R.id.progressBarPrivacy);
+				ProgressBar pb = (ProgressBar) findViewById(R.id.privacy_progress);
 				
 				pb.setVisibility(View.INVISIBLE);
-				WebView webview = (WebView) findViewById(R.id.policyText);
+				WebView webview = (WebView) findViewById(R.id.privacy_text);
 				webview.loadData(data,mimeType,null);
 				webview.setVisibility(View.VISIBLE);
 				

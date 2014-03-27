@@ -39,7 +39,7 @@ public class ActivityItemViewGenerator extends ViewGenerator{
 	@Override
 	public ViewHolder fillViewHolder(View view, LayoutInflater inflater) {
 		
-		holder.first =  (TextView) view.findViewById(R.id.title);
+		holder.first =  (TextView) view.findViewById(R.id.start_title);
 		holder.second =  (TextView) view.findViewById(R.id.description);		
 		holder.imageview = (ImageView) view.findViewById(R.id.icon);		
 		holder.linear = (LinearLayout) view.findViewById(R.id.view);

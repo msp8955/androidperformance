@@ -85,7 +85,7 @@ public class ListAdapter  extends ArrayAdapter<Model>{
 
 			v = inflater.inflate(ResourceId, null);
 			holder = new ViewHolder();
-			holder.title =  (TextView) v.findViewById(R.id.title);
+			holder.title =  (TextView) v.findViewById(R.id.start_title);
 			holder.listview = (ListView) v.findViewById(R.id.listview);
 			//holder.imageview = (ImageView) v.findViewById(R.id.image);
 

@@ -6,25 +6,25 @@
     android:background="@drawable/btn_blue"
     android:orientation="vertical" >
 
-    <ProgressBar
-        android:id="@+id/progressBar1"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" />
-
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/start_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/progressBar1"
+        android:layout_above="@+id/start_progress"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
         android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#fff"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textStyle="bold" />
+
+    <ProgressBar
+        android:id="@+id/start_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
 
 </RelativeLayout>

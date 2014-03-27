@@ -14,30 +14,41 @@ public class UserDataHelper {
 	}
 	
 	public int getDataCap() {
-		return PreferencesUtil.getDataInt("datacap", context);
+		return PreferencesUtil.getDataInt("dataLimit", context);
 	}
 	public void setDataCap(int dataCap) {
-		PreferencesUtil.setDataInt("datacap", dataCap, context);
+		PreferencesUtil.setDataInt("dataLimit", dataCap, context);
 	}
 	public int getBillingCycle() {
-		return PreferencesUtil.getDataInt("billingcycle", context);
+		return PreferencesUtil.getDataInt("billingCycle", context);
 	}
 	public void setBillingCycle(int billingCycle) {
-		PreferencesUtil.setDataInt("billingcycle", billingCycle, context);
+		PreferencesUtil.setDataInt("billingCycle", billingCycle, context);
 	}
-	
+	public int getBillingCost() {
+		return PreferencesUtil.getDataInt("billingCycle", context);
+	}
+	public void setBillingCost(String cost) {
+		PreferencesUtil.setDataString("billingCost", cost, context);
+	}
 	public void setDataEnable(int val) {
-		PreferencesUtil.setDataInt("dataenable", val, context);
+		PreferencesUtil.setDataInt("billingCost", val, context);
 	}
-	
+	public String getCurrency(){
+		return PreferencesUtil.getDataString("currency", context);
+	}
+	public void setCurrency(String c){
+		PreferencesUtil.setDataString("currency", c, context);
+	}
 	public int getDataEnable() {
 		return PreferencesUtil.getDataInt("dataenable", context);
 	}
 	
 	public boolean isFilled(){		
-		return PreferencesUtil.contains("datacap", context) && 
-				PreferencesUtil.contains("billingcycle", context) && 
-				PreferencesUtil.contains("dataenable", context);
+		return PreferencesUtil.contains("dataLimit", context) && 
+				PreferencesUtil.contains("billingCycle", context) && 
+				PreferencesUtil.contains("billingCost", context) &&
+				PreferencesUtil.contains("currency", context);
 	}
 
 }

@@ -7,31 +7,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimeZone;
-
-import org.apache.http.cookie.SetCookie;
-
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.num.database.DatabaseOutput;
-import com.num.database.mapping.BaseMapping;
 import com.num.database.mapping.LatencyMapping;
 import com.num.database.mapping.ThroughputMapping;
 import com.num.helpers.GAnalytics;
-import com.num.models.GraphData;
 import com.num.models.GraphPoint;
-import com.num.models.LastMile;
-import com.num.models.Link;
-import com.num.models.MainModel;
 import com.num.models.Measure;
 import com.num.models.Model;
 import com.num.models.Ping;
-import com.num.models.Throughput;
 import com.num.utils.DeviceUtil;
 //import com.sun.org.apache.regexp.internal.recompile;
 

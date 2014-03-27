@@ -124,7 +124,7 @@ public class TourActivity extends Activity
 			finish();
 			if(!force){
 				
-				Intent myIntent = new Intent(this, UserFormActivity.class);
+				Intent myIntent = new Intent(this, DataCapActivity.class);
                 startActivity(myIntent);
 				
 			}

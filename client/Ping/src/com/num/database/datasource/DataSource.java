@@ -9,11 +9,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
-import java.util.TimeZone;
-
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -24,15 +21,8 @@ import com.num.database.DatabaseOutput;
 import com.num.database.mapping.ApplicationMapping;
 import com.num.database.mapping.BaseMapping;
 import com.num.database.mapping.LatencyMapping;
-import com.num.database.mapping.ThroughputMapping;
-import com.num.models.GraphData;
-
 import com.num.models.GraphPoint;
-import com.num.models.Link;
-import com.num.models.MainModel;
 import com.num.models.Model;
-import com.num.models.Throughput;
-import com.num.utils.DeviceUtil;
 
 public abstract class DataSource {
 	// Database fields
@@ -88,7 +78,7 @@ public abstract class DataSource {
 	}
 
 	public String getTime() {
-		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.getDefault());
 		return sdf.format(new Date());
 	}
 
@@ -107,9 +97,9 @@ public abstract class DataSource {
 		if (isPurgeAllowed()) {
 			purgeOldData(5, 10);
 
-			Random random = new Random();
-			int lower = random.nextInt(10) * 5 + 10;
-			int higher = lower + 5;
+			//Random random = new Random();
+			//int lower = random.nextInt(10) * 5 + 10;
+			//int higher = lower + 5;
 
 			//purgeOldData(lower, higher);
 
@@ -147,7 +137,7 @@ public abstract class DataSource {
 		open();
 
 		while (onDelete.after(endDelete)) {
-			final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
 			String s = sdf.format(onDelete);
 			
 			database.delete(dbHelper.getTableName(),
@@ -321,7 +311,7 @@ public abstract class DataSource {
 	public abstract Date extractTime(Map<String, String> data);
 
 	public String extractDate(Map<String, String> data) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.getDefault());
 		String dateString = data.get(LatencyMapping.COLUMN_TIME);
 		try {
 			Date d = df.parse(dateString);
@@ -333,7 +323,7 @@ public abstract class DataSource {
 	}
 
 	public Date extractDate(String dateString) {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.getDefault());
 		try {
 			return df.parse(dateString);
 		} catch (ParseException e) {

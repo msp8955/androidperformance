@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, PingActivity!</string>
+
     <string name="app_name">My Speed Test</string>
+    <string name="title_activity_privacy">TERMS AND CONDITIONS</string>
+    <string name="title_activity_start">StartActivity</string>
+    <string name="title_activity_data_cap">CHOOSE DATA LIMIT</string>
+    <string name="title_activity_billing_cycle">CHOOSE BILLING CYCLE</string>
+    <string name="title_activity_billing_cost">CHOOSE BILLING COST</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+    <string name="skip">Skip</string>
     <string name="testButton">Full Test</string>
     <string name="pingButton">Latency</string>
     <string name="wifiButton">Wifi</string>
@@ -9,7 +17,12 @@
     <string name="throughputButton">Throughput</string>
     <string name="configButton">Settings</string>
     <string name="cancelButton">Cancel</string>
-    <string name="saveButton">Save</string>
-    <string name="backButton">Back</string>
-    <string name="ga_api_key">UA-35919226-1</string>
+    <string name="save">Save</string>
+    <string name="back">Back</string>
+    <string name="message_data_cap">Which of the following options is the closest to your monthly data plan limit?</string>
+    <string name="message_billing_cycle">What day of the month does your billing cycle restart?</string>
+    <string name="message_billing_cost">How much do you pay per month for your current data plan?</string>
+    <string name="ga_api_key">UA\-35919226\-1</string>
+    <string name="action_settings">Settings</string>
+
 </resources>
