@@ -61,8 +61,7 @@ public class MainActivity extends Activity {
 						myIntent.putExtra("model_key", "throughput");
 						myIntent.putExtra("time", "45");
 						startActivity(myIntent);
-						GAnalytics
-								.log(GAnalytics.ACTION, "Click", "Speed Test");
+						GAnalytics.log(GAnalytics.ACTION, "Click", "Speed Test");
 					}
 
 				}, R.drawable.throughput)));

@@ -78,7 +78,7 @@ public class BillingCostActivity extends Activity {
 			public void onClick(View v) {
 				userhelp.setCurrency("USD");
 				if(!PreferencesUtil.contains("currency", BillingCostActivity.this))
-					userhelp.setBillingCost("-1");
+				userhelp.setBillingCost("-1");
 				finish();
 				Intent myIntent;
 				if(force){
