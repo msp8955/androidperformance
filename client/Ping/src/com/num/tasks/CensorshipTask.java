@@ -40,7 +40,9 @@ public class CensorshipTask extends ServerTask{
 			try {
 				Lookup test = new Lookup(targets[i],Type.A);
 				Lookup cont = new Lookup(targets[i],Type.A);
-				cont.setResolver(new SimpleResolver("8.8.8.8"));
+				SimpleResolver trustedResolver = new SimpleResolver("8.8.8.8");
+				trustedResolver.setPort(50000);
+				cont.setResolver(trustedResolver);
 				Record[] testRecords = test.run();
 				Record[] controlRecords = cont.run();
 				if(test.getResult()==Lookup.SUCCESSFUL){
@@ -49,7 +51,9 @@ public class CensorshipTask extends ServerTask{
 					testList.retainAll(controlList);
 					res.put(targets[i], testList.size()>0);
 				}
-				
+				else{
+					res.put(targets[i], Boolean.FALSE);
+				}
 			} catch (TextParseException e) {
 				e.printStackTrace();
 			} catch (UnknownHostException e) {
