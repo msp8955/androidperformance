@@ -39,6 +39,7 @@ import com.num.helpers.ServiceHelper;
 import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.BaseResponseListener;
 import com.num.models.Battery;
+import com.num.models.Censorship;
 import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.LastMile;
@@ -289,6 +290,11 @@ public class RunActivity extends BaseActivityGroup {
 		}
 
 		public void onCompleteLoss(Loss loss) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteCensorship(Censorship censorshipe) {
 			// TODO Auto-generated method stub
 			
 		}

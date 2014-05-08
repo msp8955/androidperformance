@@ -2,9 +2,11 @@ package com.num.listeners;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import org.json.JSONObject;
 
 import com.num.models.Battery;
+import com.num.models.Censorship;
 import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.LastMile;
@@ -79,6 +81,6 @@ public interface ResponseListener {
 
 	public void onCompleteTracerouteHop(TracerouteEntry traceroute);
 
-	
+	public void onCompleteCensorship(Censorship censorship);
 
 }

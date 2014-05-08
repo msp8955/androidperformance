@@ -20,8 +20,8 @@ import android.widget.RadioGroup;
 public class DataCapActivity extends Activity {
 
 	private RadioGroup radioGroup;
-	private int[] limit_val= {-1,0,250,500,750,1000,2000,9999};
-	private String[] limit_text = {"Don't have one","Don't know","250 MB","500 MB","750 MB","1 GB","2 GB","More than 2GB"};
+	private int[] limit_val= {-1,0,-2,250,500,750,1000,2000,9999};
+	private String[] limit_text = {"Don't have one","Don't know","Prepaid","250 MB","500 MB","750 MB","1 GB","2 GB","More than 2GB"};
 	private boolean force = false;
 	private UserDataHelper userhelp;
 	private Button saveButton;
@@ -72,7 +72,10 @@ public class DataCapActivity extends Activity {
 					return;			
 				}
 				else{
-					myIntent = new Intent(v.getContext(), BillingCycleActivity.class);
+					if(limit_val[checkedRadioButton]==-2)
+						myIntent = new Intent(v.getContext(), PrepaidActivity.class);
+					else
+						myIntent = new Intent(v.getContext(), BillingCycleActivity.class);
 				}
 				myIntent.putExtra("force", force);
 				startActivity(myIntent);

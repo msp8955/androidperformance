@@ -19,6 +19,7 @@ import com.num.utils.SHA1Util;
 import com.num.R;
 
 import android.content.Context;
+import android.util.Log;
 
 public class Measurement implements MainModel{
 
@@ -198,7 +199,8 @@ public class Measurement implements MainModel{
 	static {
 		dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
 	}
-	public JSONObject toMobiperfJSON() {
+
+/*	public JSONObject toMobiperfJSON() {
 		/* Example of the mobiperf ping command 
 		 * [{
 		    "timestamp": 1382419261277000,
@@ -261,8 +263,7 @@ public class Measurement implements MainModel{
 		  - Usage (Have one usage data for each ping)
 		  - Throughput
 		  - Lastmile (Find out what this is exactly) 
-		
-		 */
+
 		JSONObject obj = new JSONObject();
 		try {
 			JSONObject property = new JSONObject();
@@ -310,7 +311,7 @@ public class Measurement implements MainModel{
 			e.printStackTrace();
 		}
 		return obj;
-	}
+	}*/
 
 	public JSONObject toJSON() {
 		JSONObject obj = new JSONObject();
@@ -373,15 +374,15 @@ public class Measurement implements MainModel{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		//printJSON(obj.toString());
 		return obj;
 	}
 
 	public void putSafe(JSONObject obj,String key,Object text){
-
 		try {
 			obj.put(key,text);
 		} catch (JSONException e) {
-
+			
 		}
 	}
 
@@ -456,5 +457,13 @@ public class Measurement implements MainModel{
 		
 	}
 
+	public static void printJSON(String str){
+		if(str.length()>4000){
+			Log.d("Debug", str.substring(0, 4000));
+			printJSON(str.substring(4000));
+		}
+		else
+			Log.d("Debug", str);
+	}
 
 }

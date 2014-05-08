@@ -85,7 +85,18 @@ public class MainActivity extends Activity {
 					}
 
 				}, R.drawable.stopwatch)));
+		cells.add(new Row(new ActivityItem("Censorship",
+				"Get websites blocked", new Handler() {
+					public void handleMessage(Message msg) {
+						Intent myIntent = new Intent(activity,
+								FullDisplayActivity.class);
+						myIntent.putExtra("model_key", "censorship");
+						myIntent.putExtra("time", "15");
+						startActivity(myIntent);
+					}
 
+				}, R.drawable.censorship)));
+		
 		cells.add(new Row(new ActivityItem("Configure", "Change preference",
 				new Handler() {
 					public void handleMessage(Message msg) {

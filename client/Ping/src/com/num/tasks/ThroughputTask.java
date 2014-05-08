@@ -27,7 +27,6 @@ public class ThroughputTask extends ServerTask{
 	public void runTask() {
 		
 		try {
-			
 			Throughput t = ThroughputHelper.getThroughput(getContext(),getResponseListener());			
 			//String connection = DeviceUtil.getNetworkInfo(getContext());			
 			ThroughputDataSource datasource = new ThroughputDataSource(getContext());			

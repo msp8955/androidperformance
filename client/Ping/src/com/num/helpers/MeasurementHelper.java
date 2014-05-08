@@ -9,15 +9,11 @@ import com.num.models.Screen;
 import com.num.utils.HTTPUtil;
 import com.num.utils.PreferencesUtil;
 import com.num.utils.SDCardFileReader;
-import com.num.mobiperf.*;
-
 import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 
 public class MeasurementHelper {
-
-	private static Checkin checkin;
 
 	
 	public static void attemptSendingUnsentMeasurements(Context context){
@@ -48,18 +44,30 @@ public class MeasurementHelper {
 			SDCardFileReader.saveData("measurement_last.txt",measurement.toJSON().toString());			
 		}
 		try {
-			;
 			object = measurement.toJSON();
-			//Log.d("Debug",PreferencesUtil.getDataString("billingCost", context)+" "+PreferencesUtil.getDataString("currency", context));
-			Log.d("Debug",""+measurement.getDevice().toJSON());
+			//Log.d("Debug",""+object);
 		} catch (Exception e) {
 			e.printStackTrace();
 			GAnalytics.log(GAnalytics.MEASUREMENT, "Send Fail New",e.getMessage());
-			return "Failure";	
+			return "Failure";
 		}
+
+		GAnalytics.log(GAnalytics.MEASUREMENT, "Send Success New","");
+		try {
+			String output = http.request(new HashMap<String,String>(), "POST", "measurement_v2", "", object.toString());
+			//System.out.println(object.toString());
+			System.out.println(output);
+			session.screenBuffer = new ArrayList<Screen>();
+			MeasurementHelper.attemptSendingUnsentMeasurements(context);
+			GAnalytics.log(GAnalytics.MEASUREMENT, "Send Success Old","");
+		} catch (Exception e) {
+			e.printStackTrace();
+			GAnalytics.log(GAnalytics.MEASUREMENT, "Send Fail Old",e.getMessage());
+			return "Failure";
+		}
+		return "Success";
 		/*
 		 * Send measurements to Mobiperf - MLab database
-		 */
 		//////////////////////////////////////////////////////////
 		try {
 			checkin = new Checkin(context);
@@ -81,20 +89,6 @@ public class MeasurementHelper {
 			}
 			return "Success";
 		}
-		//////////////////////////////////////////////////////////
-		GAnalytics.log(GAnalytics.MEASUREMENT, "Send Success New","");
-		try {
-			String output = http.request(new HashMap<String,String>(), "POST", "measurement_v2", "", object.toString());
-			System.out.println(object.toString());
-			System.out.println(output);
-			session.screenBuffer = new ArrayList<Screen>();
-			MeasurementHelper.attemptSendingUnsentMeasurements(context);
-			GAnalytics.log(GAnalytics.MEASUREMENT, "Send Success Old","");
-		} catch (Exception e) {
-			e.printStackTrace();
-			GAnalytics.log(GAnalytics.MEASUREMENT, "Send Fail Old",e.getMessage());
-			return "Failure";
-		}
-		return "Success";
+		//////////////////////////////////////////////////////////*/
 	}
 }

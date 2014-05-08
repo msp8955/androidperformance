@@ -72,7 +72,6 @@ public class SettingsActivity extends Activity {
 						startActivity(myIntent);
 					}
 				}, R.drawable.date)));
-
 		ItemAdapter itemadapter = new ItemAdapter(activity, cells);
 		for (Row cell : cells)
 			itemadapter.add(cell);

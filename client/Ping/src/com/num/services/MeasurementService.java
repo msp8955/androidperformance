@@ -11,6 +11,7 @@ import com.num.helpers.UserDataHelper;
 import com.num.listeners.BaseResponseListener;
 import com.num.listeners.FakeListener;
 import com.num.models.Battery;
+import com.num.models.Censorship;
 import com.num.models.ClientLog;
 import com.num.models.Device;
 import com.num.models.GPS;
@@ -270,6 +271,11 @@ public class MeasurementService extends IntentService {
 		}
 
 		public void onCompleteLoss(Loss loss) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteCensorship(Censorship censorship) {
 			// TODO Auto-generated method stub
 			
 		}

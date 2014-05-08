@@ -15,9 +15,9 @@ import com.num.helpers.MeasurementHelper;
 import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.BaseResponseListener;
 import com.num.listeners.ResponseListener;
-import com.num.mobiperf.Checkin;
 import com.num.models.Address;
 import com.num.models.Battery;
+import com.num.models.Censorship;
 import com.num.models.ClientLog;
 import com.num.models.Device;
 import com.num.models.GPS;
@@ -131,8 +131,6 @@ public class MeasurementTask extends ServerTask {
 	private class MeasurementListener extends BaseResponseListener {
 
 		public void onCompletePing(Ping response) {
-			Checkin checkin = new Checkin(context);
-			checkin.sendPing("ping", measurement, response);
 			pings.add(response);
 			dataSource.insert(response);
 		}
@@ -258,6 +256,11 @@ public class MeasurementTask extends ServerTask {
 		public void onCompleteLoss(Loss loss) {
 			measurement.setLoss(loss);
 			getResponseListener().onCompleteLoss(loss);
+			
+		}
+
+		public void onCompleteCensorship(Censorship censorship) {
+			// TODO Auto-generated method stub
 			
 		}
 	}

@@ -151,11 +151,15 @@
         </activity>
         <activity
             android:name="com.num.activities.BillingCostActivity"
-            android:label="@string/title_activity_billing_cost" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name="com.num.activities.MainActivity"
-            android:label="@string/title_activity_main" >
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.num.activities.PrepaidActivity"
+            android:label="@string/app_name" >
         </activity>
     </application>
 

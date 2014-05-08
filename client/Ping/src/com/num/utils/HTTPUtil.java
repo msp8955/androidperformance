@@ -78,6 +78,7 @@ public class HTTPUtil {
 		}
 
 		System.out.println(data_hashed.getBytes(charset));
+		System.out.println(conn.getResponseCode());
 		String response =  read(conn.getInputStream());
 		conn.disconnect();
 		return response;

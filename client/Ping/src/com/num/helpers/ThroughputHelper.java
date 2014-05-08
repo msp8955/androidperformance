@@ -10,6 +10,7 @@ import android.content.Context;
 import com.num.listeners.BaseResponseListener;
 import com.num.listeners.ResponseListener;
 import com.num.models.Battery;
+import com.num.models.Censorship;
 import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.LastMile;
@@ -141,6 +142,11 @@ public class ThroughputHelper {
 		}
 
 		public void onCompleteLoss(Loss loss) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteCensorship(Censorship censorship) {
 			// TODO Auto-generated method stub
 			
 		}

@@ -1,6 +1,7 @@
 package com.num.activities;
 
 import java.util.ArrayList;
+
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -17,6 +18,7 @@ import com.num.helpers.TaskHelper;
 import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.BaseResponseListener;
 import com.num.models.Battery;
+import com.num.models.Censorship;
 import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.LastMile;
@@ -161,6 +163,10 @@ public class FullDisplayActivity extends TrackedActivity {
 		public void onCompleteSIM(Sim response) {
 			//onCompleteOutput(response);
 
+		}
+		
+		public void onCompleteCensorship(Censorship response){
+			onCompleteOutput(response);
 		}
 
 		public void onCompleteSummary(JSONObject Object) {

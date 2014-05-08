@@ -1,26 +1,19 @@
 package com.num.tasks;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.location.Location;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 
 import com.num.Values;
-import com.num.database.datasource.LatencyDataSource;
-import com.num.helpers.MeasurementHelper;
 import com.num.helpers.ThreadPoolHelper;
 import com.num.listeners.BaseResponseListener;
-import com.num.listeners.FakeListener;
 import com.num.listeners.ResponseListener;
 import com.num.models.Address;
 import com.num.models.Battery;
+import com.num.models.Censorship;
 import com.num.models.Device;
 import com.num.models.GPS;
 import com.num.models.LastMile;
@@ -29,7 +22,6 @@ import com.num.models.Loss;
 import com.num.models.Measurement;
 import com.num.models.Network;
 import com.num.models.Ping;
-import com.num.models.Screen;
 import com.num.models.Sim;
 import com.num.models.Throughput;
 import com.num.models.Traceroute;
@@ -86,8 +78,7 @@ public class AllTraceroutesTask extends ServerTask{
 		
 		MeasurementListener listener= new MeasurementListener();
 		
-		Values session = this.getValues();
-		ThreadPoolHelper serverhelperTraceroute = new ThreadPoolHelper(20,session.THREADPOOL_KEEPALIVE_SEC);
+		ThreadPoolHelper serverhelperTraceroute = new ThreadPoolHelper(20,Values.THREADPOOL_KEEPALIVE_SEC);
 		
 		for(int i = 2; i < 20; i++)
 		{
@@ -231,6 +222,11 @@ public class AllTraceroutesTask extends ServerTask{
 		}
 
 		public void onCompleteLoss(Loss loss) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		public void onCompleteCensorship(Censorship censorship) {
 			// TODO Auto-generated method stub
 			
 		}

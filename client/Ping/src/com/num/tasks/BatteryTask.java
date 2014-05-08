@@ -1,20 +1,12 @@
 package com.num.tasks;
 
-import java.util.ArrayList;
 import java.util.Map;
-
-import org.json.JSONObject;
 
 import android.content.Context;
 
-import com.num.helpers.DeviceHelper;
-import com.num.helpers.PingHelper;
 import com.num.listeners.ResponseListener;
 import com.num.models.Measurement;
-import com.num.models.Ping;
 import com.num.utils.BatteryUtil;
-import com.num.utils.HTTPUtil;
-import com.num.utils.SignalUtil;
 
 /*
  * Measurement Task 
