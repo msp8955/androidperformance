@@ -1,6 +1,8 @@
 package com.num.utils;
 
+import java.util.Locale;
 import java.util.Scanner;
+
 
 import com.num.models.Measure;
 import com.num.models.Throughput;
@@ -13,21 +15,25 @@ public class ParseUtil {
 
 			String lastLine = null;
 			Scanner scanLines = new Scanner(s);
+			scanLines.useLocale(Locale.US);
 			Scanner scanLastLine;
 			Scanner scanValues;
 			double max;
 			double min;
 			double avr;
 			double stddev;
+			
 
 			while (scanLines.hasNextLine())
 				lastLine = scanLines.nextLine();
 
 			scanLastLine = new Scanner(lastLine);
+			scanLastLine.useLocale(Locale.US);
 			scanLastLine.findInLine("=");
 
 			if (scanLastLine.hasNext()) {
 				scanValues = new Scanner(scanLastLine.next());
+				scanValues.useLocale(Locale.US);
 				scanValues.useDelimiter("/");
 				try {
 					min = scanValues.nextDouble();
