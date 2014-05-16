@@ -1,16 +1,19 @@
 package com.num.activities;
 
 import java.util.ArrayList;
+
 import com.num.R;
 import com.num.Values;
 import com.num.helpers.ServiceHelper;
 import com.num.helpers.ThreadPoolHelper;
+import com.num.helpers.UserDataHelper;
 import com.num.listeners.FakeListener;
 import com.num.models.ActivityItem;
 import com.num.models.Row;
 import com.num.tasks.ValuesTask;
 import com.num.ui.UIUtil;
 import com.num.ui.adapter.ItemAdapter;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,6 +29,7 @@ public class SettingsActivity extends Activity {
 	private Activity activity;
 	private ThreadPoolHelper serverhelper;
 	private Values session = null;
+	private UserDataHelper userhelp;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +40,8 @@ public class SettingsActivity extends Activity {
 		session = (Values) getApplicationContext();
 		session.loadValues();
 		listview = (ListView) findViewById(R.id.settings_list_view);
-
+		userhelp = new UserDataHelper(activity);
+		
 		serverhelper = new ThreadPoolHelper(10, 30);
 
 		serverhelper.execute(new ValuesTask(this, new FakeListener()));
@@ -51,27 +56,39 @@ public class SettingsActivity extends Activity {
 						myIntent.putExtra("force", true);
 						startActivity(myIntent);
 					}
-				}, R.drawable.throughput)));
-		
-		cells.add(new Row(new ActivityItem("Choose Monthly Price",
-				"Choose how much you pay by month", new Handler() {
-					public void handleMessage(Message msg) {
-						Intent myIntent = new Intent(activity,
-								BillingCostActivity.class);
-						myIntent.putExtra("force", true);
-						startActivity(myIntent);
-					}
-				}, R.drawable.price)));
-		
-		cells.add(new Row(new ActivityItem("Choose Billing Cycle",
-				"Choose when your billing cycle begins", new Handler() {
-					public void handleMessage(Message msg) {
-						Intent myIntent = new Intent(activity,
-								BillingCycleActivity.class);
-						myIntent.putExtra("force", true);
-						startActivity(myIntent);
-					}
-				}, R.drawable.date)));
+				}, R.drawable.throughput, null)));
+		if(userhelp.getDataCap() == UserDataHelper.PREPAID){
+			cells.add(new Row(new ActivityItem("Prepaid Information ",
+					"Add a new prepaid card", new Handler() {
+						public void handleMessage(Message msg) {
+							Intent myIntent = new Intent(activity,
+									PrepaidActivity.class);
+							myIntent.putExtra("force", true);
+							startActivity(myIntent);
+						}
+					}, R.drawable.price, null)));
+		}
+		else if(userhelp.getDataCap() != UserDataHelper.NONE){
+			cells.add(new Row(new ActivityItem("Choose Monthly Price",
+					"Choose how much you pay by month", new Handler() {
+						public void handleMessage(Message msg) {
+							Intent myIntent = new Intent(activity,
+									BillingCostActivity.class);
+							myIntent.putExtra("force", true);
+							startActivity(myIntent);
+						}
+					}, R.drawable.price, null)));
+			
+			cells.add(new Row(new ActivityItem("Choose Billing Cycle",
+					"Choose when your billing cycle begins", new Handler() {
+						public void handleMessage(Message msg) {
+							Intent myIntent = new Intent(activity,
+									BillingCycleActivity.class);
+							myIntent.putExtra("force", true);
+							startActivity(myIntent);
+						}
+					}, R.drawable.date, null)));
+		}
 		ItemAdapter itemadapter = new ItemAdapter(activity, cells);
 		for (Row cell : cells)
 			itemadapter.add(cell);

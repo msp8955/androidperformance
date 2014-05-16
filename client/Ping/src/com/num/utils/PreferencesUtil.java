@@ -12,7 +12,7 @@ public class PreferencesUtil {
 	public static final String SETTINGS_FILE_NAME = "com.num";
 	
 	public static SharedPreferences getPreferences(Context context){
-		return context.getSharedPreferences(SETTINGS_FILE_NAME, context.MODE_PRIVATE);
+		return context.getSharedPreferences(SETTINGS_FILE_NAME, Context.MODE_PRIVATE);
 	}
 	
 	public static int getFrequency(Context context){

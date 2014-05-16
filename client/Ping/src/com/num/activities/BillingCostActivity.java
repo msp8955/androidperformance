@@ -19,6 +19,7 @@ import android.widget.EditText;
 
 public class BillingCostActivity extends Activity {
 	private UserDataHelper userhelp;
+	private Activity activity;
 	private final String currency[] = {"USD","CNY","EUR","GBP","INR","JPY","KRW","RUB","TND","ZAR"};
 	private WheelView wheel;
 	private boolean force;
@@ -29,7 +30,7 @@ public class BillingCostActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_billing_cost);
-		
+		activity = this;
 		Bundle extras = getIntent().getExtras();
 		try{
 			force = extras.getBoolean("force");
@@ -42,6 +43,24 @@ public class BillingCostActivity extends Activity {
 		if(!force && PreferencesUtil.contains("billingCost", this)){
 			finish();
 			Intent myIntent = new Intent(this, MainActivity.class);
+			if(!PreferencesUtil.isAccepted(activity)){
+				myIntent = new Intent(activity, PrivacyActivity.class);
+			}
+			else if(!PreferencesUtil.contains("dataLimit",activity)){
+				myIntent = new Intent(activity, DataCapActivity.class);
+			}
+			else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap() == UserDataHelper.PREPAID){
+				myIntent = new Intent(activity, PrepaidActivity.class);
+			}
+			else if(!PreferencesUtil.contains("billingCycle",activity) && userhelp.getDataCap()!=UserDataHelper.NONE){
+				myIntent = new Intent(activity, BillingCycleActivity.class);
+			}
+			else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap()!=UserDataHelper.NONE){
+				myIntent = new Intent(activity, BillingCostActivity.class);
+			}
+			else {
+				myIntent = new Intent(activity, MainActivity.class);
+			}
 			startActivity(myIntent);
 		}
 		
@@ -63,7 +82,7 @@ public class BillingCostActivity extends Activity {
 				String curr = currency[wheel.getCurrentItem()];
 				userhelp.setCurrency(curr);
 				userhelp.setBillingCost(cost);
-				Log.d("Debug",""+userhelp.getBillingCost());
+				userhelp.setPrepaidData(0);
 				finish();
 				if(force){
 					finishActivity(0);
@@ -82,6 +101,8 @@ public class BillingCostActivity extends Activity {
 					userhelp.setCurrency("USD");
 				if(!PreferencesUtil.contains("billingCost", BillingCostActivity.this))
 					userhelp.setBillingCost(-1);
+				if(!PreferencesUtil.contains("prepaidData", BillingCostActivity.this))
+					userhelp.setPrepaidData(0);
 				finish();
 				if(force){
 					finishActivity(0);

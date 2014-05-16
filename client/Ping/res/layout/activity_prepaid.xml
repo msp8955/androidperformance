@@ -56,7 +56,6 @@
                 android1:layout_height="wrap_content"
                 android1:layout_weight="1"
                 android1:ems="10"
-                android1:gravity="center_vertical|center_horizontal"
                 android1:inputType="numberDecimal" >
 
                 <requestFocus />
@@ -102,7 +101,7 @@
 
             <EditText
                 android1:id="@+id/prepaid_cost_input"
-                android1:layout_width="300dip"
+                android1:layout_width="0dip"
                 android1:layout_height="wrap_content"
                 android1:layout_gravity="center_vertical"
                 android1:layout_weight="0.8"
@@ -112,10 +111,24 @@
         </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android1:id="@+id/prepaid_cost_save_button"
-        android1:layout_width="match_parent"
-        android1:layout_height="wrap_content"
-        android1:text="@string/save" />
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/prepaid_cost_save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.50"
+            android:text="@string/save" />
+
+        <Button
+            android:id="@+id/prepaid_cost_cancel_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.50"
+            android:text="@string/cancel" />
+
+    </LinearLayout>
 
 </LinearLayout>

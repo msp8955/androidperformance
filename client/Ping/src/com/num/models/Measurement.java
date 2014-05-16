@@ -374,7 +374,7 @@ public class Measurement implements MainModel{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//printJSON(obj.toString());
+		printJSON(obj.toString());
 		return obj;
 	}
 

@@ -21,6 +21,7 @@ import com.google.android.apps.analytics.easytracking.TrackedActivity;
 import com.num.R;
 import com.num.Values;
 import com.num.helpers.ThreadPoolHelper;
+import com.num.helpers.UserDataHelper;
 import com.num.listeners.BaseResponseListener;
 import com.num.models.Battery;
 import com.num.models.Censorship;
@@ -45,9 +46,7 @@ import com.num.utils.PreferencesUtil;
 
 public class PrivacyActivity extends TrackedActivity 
 {
-	
-	//private TableLayout table;
-	
+
 	private Activity activity;
 	private ThreadPoolHelper serverhelper;
 	final String mimeType = "text/html";
@@ -64,12 +63,31 @@ public class PrivacyActivity extends TrackedActivity
 		super.onCreate(savedInstanceState);
 		
 		Values session = (Values) this.getApplicationContext();
+		UserDataHelper userhelp = new UserDataHelper(this);
 		
+		/* Skip if setting fields are filled */
 		if(!session.DEBUG&&PreferencesUtil.isAccepted(this)){
 			finish();
-			System.out.println("ACCEPT");
-			Intent myIntent = new Intent(this, DataCapActivity.class);
-            startActivity(myIntent);
+			Intent myIntent = null;
+			if(!PreferencesUtil.isAccepted(activity)){
+				myIntent = new Intent(activity, PrivacyActivity.class);
+			}
+			else if(!PreferencesUtil.contains("dataLimit",activity)){
+				myIntent = new Intent(activity, DataCapActivity.class);
+			}
+			else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap() == UserDataHelper.PREPAID){
+				myIntent = new Intent(activity, PrepaidActivity.class);
+			}
+			else if(!PreferencesUtil.contains("billingCycle",activity) && userhelp.getDataCap()!=UserDataHelper.NONE){
+				myIntent = new Intent(activity, BillingCycleActivity.class);
+			}
+			else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap()!=UserDataHelper.NONE){
+				myIntent = new Intent(activity, BillingCostActivity.class);
+			}
+			else {
+				myIntent = new Intent(activity, MainActivity.class);
+			}
+			startActivity(myIntent);
 		}
 		
 		setContentView(R.layout.activity_privacy);
@@ -81,10 +99,6 @@ public class PrivacyActivity extends TrackedActivity
 
 		acceptButton = (Button) findViewById(R.id.privacy_accept_button);
 		rejectButton = (Button) findViewById(R.id.privacy_reject_button);
-		//WebView webview = (WebView) findViewById(R.id.policyText);
-		//webview.getSettings().setJavaScriptEnabled(true);
-		//webview.loadData("Conditions of Use<br>Welcome to our application - Network Usage Monitor! Team Network Usage Monitor provides this application to you subject to the following conditions. To use the application you must accept these conditions. Please read them carefully.<br>PRIVACY<br>Please review our Privacy Policy, which explains the data displayed and collected from your device and its uses.",mimeType,null);
-		//webview.loadUrl("http://ruggles.gtnoise.net/static/Conditions_of_Use.html");
 		
 		rejectButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	

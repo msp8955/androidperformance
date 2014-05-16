@@ -1,27 +1,12 @@
 package com.num.ui.viewgenerator;
 
-import com.num.activities.FullDisplayActivity;
-import com.num.activities.GraphActivity;
-import com.num.database.DatabasePicker;
-import com.num.database.datasource.ApplicationDataSource;
-import com.num.database.datasource.LatencyDataSource;
-import com.num.database.mapping.ApplicationMapping;
-import com.num.database.mapping.LatencyMapping;
 import com.num.models.ActivityItem;
-import com.num.models.Application;
-import com.num.models.Model;
 import com.num.models.Row;
-import com.num.utils.DeviceUtil;
 import com.num.R;
-import com.num.Values;
-
-
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ImageView;
 
@@ -55,7 +40,10 @@ public class ActivityItemViewGenerator extends ViewGenerator{
 		holder.linear.setOnClickListener(new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				activityItem.getHandle().sendEmptyMessage(0);				
+				if(activityItem.getMessage()!=null)
+					activityItem.getHandle().sendMessage(activityItem.getMessage());
+				else
+					activityItem.getHandle().sendEmptyMessage(0);
 			}
 		});
 		

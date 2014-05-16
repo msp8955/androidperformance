@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 
 public class DataCapActivity extends Activity {
 
+	private Activity activity;
 	private RadioGroup radioGroup;
 	private int[] limit_val= {-1,0,-2,250,500,750,1000,2000,9999};
 	private String[] limit_text = {"Don't have one","Don't know","Prepaid","250 MB","500 MB","750 MB","1 GB","2 GB","More than 2GB"};
@@ -31,6 +32,7 @@ public class DataCapActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		Bundle extras = getIntent().getExtras();
 		userhelp = new UserDataHelper(this);
+		activity = this;
 		try{
 			force = extras.getBoolean("force");
 		}
@@ -41,7 +43,25 @@ public class DataCapActivity extends Activity {
 		//Skip if data is already present
 		if(!force && PreferencesUtil.contains("dataLimit", this)){
 			finish();
-			Intent myIntent = new Intent(this, MainActivity.class);
+			Intent myIntent = null;
+			if(!PreferencesUtil.isAccepted(activity)){
+				myIntent = new Intent(activity, PrivacyActivity.class);
+			}
+			else if(!PreferencesUtil.contains("dataLimit",activity)){
+				myIntent = new Intent(activity, DataCapActivity.class);
+			}
+			else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap() == UserDataHelper.PREPAID){
+				myIntent = new Intent(activity, PrepaidActivity.class);
+			}
+			else if(!PreferencesUtil.contains("billingCycle",activity) && userhelp.getDataCap()!=UserDataHelper.NONE){
+				myIntent = new Intent(activity, BillingCycleActivity.class);
+			}
+			else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap()!=UserDataHelper.NONE){
+				myIntent = new Intent(activity, BillingCostActivity.class);
+			}
+			else {
+				myIntent = new Intent(activity, MainActivity.class);
+			}
 			startActivity(myIntent);
 		}
 		
@@ -72,8 +92,12 @@ public class DataCapActivity extends Activity {
 					return;			
 				}
 				else{
-					if(limit_val[checkedRadioButton]==-2)
+					if(limit_val[checkedRadioButton]==UserDataHelper.PREPAID)
 						myIntent = new Intent(v.getContext(), PrepaidActivity.class);
+					else if(limit_val[checkedRadioButton]==UserDataHelper.NONE){
+						userhelp.setBillingCost(-1);
+						myIntent = new Intent(v.getContext(), MainActivity.class);
+					}
 					else
 						myIntent = new Intent(v.getContext(), BillingCycleActivity.class);
 				}

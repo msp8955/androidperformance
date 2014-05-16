@@ -170,7 +170,8 @@ public class Device implements MainModel {
 					obj.putOpt("datacap",userhelp.getDataCap());
 					obj.putOpt("billingcycle",userhelp.getBillingCycle());
 					obj.putOpt("currency", userhelp.getCurrency());
-					obj.putOpt("billingprice", userhelp.getBillingCost());
+					obj.putOpt("dataprice", userhelp.getBillingCost());
+					obj.putOpt("prepaiddata", userhelp.getPrepaidData());
 				}
 			}
 			catch (Exception e){
@@ -179,7 +180,7 @@ public class Device implements MainModel {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}
 		return obj;
 	}
 

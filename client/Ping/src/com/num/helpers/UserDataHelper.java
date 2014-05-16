@@ -1,14 +1,14 @@
 package com.num.helpers;
 
 import android.content.Context;
-import android.util.Log;
-
 import com.num.utils.PreferencesUtil;
 
 public class UserDataHelper {
 	
 	
 	Context context;
+	public final static int NONE = -1;
+	public final static int PREPAID = -2;
 	
 	public UserDataHelper(Context context){
 		this.context = context;
@@ -47,6 +47,12 @@ public class UserDataHelper {
 	}
 	public void setDataEnable(int val) {
 		PreferencesUtil.setDataInt("billingCost", val, context);
+	}
+	public int getPrepaidData() {
+		return PreferencesUtil.getDataInt("prepaidData", context);
+	}
+	public void setPrepaidData(int val) {
+		PreferencesUtil.setDataInt("prepaidData", val, context);
 	}
 	
 	public boolean isFilled(){		

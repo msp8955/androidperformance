@@ -50,7 +50,6 @@ public class AppUsageHelper {
 		long mobile_recv=TrafficStats.getMobileRxBytes();
 		long mobile_sent=TrafficStats.getMobileTxBytes();
 		
-		
 		for (ApplicationInfo info : allInfo) {
 			Integer uid = info.uid;
 			if (uids.contains(uid))

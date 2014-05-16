@@ -5,6 +5,7 @@ import com.num.helpers.GAnalytics;
 import android.R.integer;
 import android.app.Activity;
 import android.os.Handler;
+import android.os.Message;
 
 public class ActivityItem {
 	
@@ -13,13 +14,14 @@ public class ActivityItem {
 	String description;
 	Handler handle;
 	int imageResource;
-	
+	Message msg;
 	public ActivityItem(String title, String description, Handler handle,
-			int imageResource) {
+			int imageResource, Message msg) {
 		super();
 		this.title = title;
 		this.description = description;
 		this.handle = handle;
+		this.msg = msg;
 		this.imageResource = imageResource;
 	}
 	public String getTitle() {
@@ -45,6 +47,11 @@ public class ActivityItem {
 	}
 	public void setImageResource(int imageResource) {
 		this.imageResource = imageResource;
+	}
+	public Message getMessage(){
+		if(msg==null)
+			return null;
+		return Message.obtain(msg);
 	}
 	
 }

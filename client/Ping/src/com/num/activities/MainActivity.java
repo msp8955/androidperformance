@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
 						GAnalytics.log(GAnalytics.ACTION, "Click", "Speed Test");
 					}
 
-				}, R.drawable.throughput)));
+				}, R.drawable.throughput, null)));
 		cells.add(new Row(new ActivityItem("Application Usage",
 				"Get data breakdown by app", new Handler() {
 					public void handleMessage(Message msg) {
@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
 						myIntent.putExtra("model_key", "usage");
 						startActivity(myIntent);
 					}
-				}, R.drawable.usage)));
+				}, R.drawable.usage, null)));
 		cells.add(new Row(new ActivityItem("Latency",
 				"Get time to reach server, 5 sec", new Handler() {
 					public void handleMessage(Message msg) {
@@ -84,19 +84,20 @@ public class MainActivity extends Activity {
 						startActivity(myIntent);
 					}
 
-				}, R.drawable.stopwatch)));
-		cells.add(new Row(new ActivityItem("Censorship",
-				"Get websites blocked", new Handler() {
-					public void handleMessage(Message msg) {
-						Intent myIntent = new Intent(activity,
-								FullDisplayActivity.class);
-						myIntent.putExtra("model_key", "censorship");
-						myIntent.putExtra("time", "15");
-						startActivity(myIntent);
-					}
-
-				}, R.drawable.censorship)));
-		
+				}, R.drawable.stopwatch, null)));
+		if(session.DEBUG==true){
+			cells.add(new Row(new ActivityItem("Censorship",
+					"Get websites blocked", new Handler() {
+						public void handleMessage(Message msg) {
+							Intent myIntent = new Intent(activity,
+									FullDisplayActivity.class);
+							myIntent.putExtra("model_key", "censorship");
+							myIntent.putExtra("time", "15");
+							startActivity(myIntent);
+						}
+	
+					}, R.drawable.censorship, null)));
+		}
 		cells.add(new Row(new ActivityItem("Configure", "Change preference",
 				new Handler() {
 					public void handleMessage(Message msg) {
@@ -106,7 +107,7 @@ public class MainActivity extends Activity {
 						startActivity(myIntent);
 					}
 
-				}, R.drawable.configure)));
+				}, R.drawable.configure, null)));
 
 		cells.add(new Row(new ActivityItem("About Us",
 				"Read about this project", new Handler() {
@@ -116,7 +117,7 @@ public class MainActivity extends Activity {
 						startActivity(myIntent);
 					}
 
-				}, R.drawable.team)));
+				}, R.drawable.team, null)));
 
 		if (session.DEBUG == true) {
 			cells.add(new Row(new ActivityItem("Graphing", "Quick Graph",
@@ -142,7 +143,7 @@ public class MainActivity extends Activity {
 
 						}
 
-					}, R.drawable.measure)));
+					}, R.drawable.measure, null)));
 		}
 		if (session.DEBUG == true) {
 			cells.add(new Row(new ActivityItem("TraceRoute",
@@ -154,7 +155,7 @@ public class MainActivity extends Activity {
 							startActivity(myIntent);
 						}
 
-					}, R.drawable.team)));
+					}, R.drawable.team, null)));
 		}
 
 		if (session.DEBUG == true) {
@@ -169,7 +170,7 @@ public class MainActivity extends Activity {
 											new HashMap<String, String>(),
 											new FakeListener()));
 						}
-					}, R.drawable.team)));
+					}, R.drawable.team, null)));
 		}
 
 		ItemAdapter itemadapter = new ItemAdapter(activity, cells);
