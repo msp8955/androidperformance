@@ -12,6 +12,7 @@ import android.os.Message;
 import android.telephony.PhoneStateListener;
 import android.telephony.SignalStrength;
 import android.telephony.TelephonyManager;
+import android.util.Log;
 
 import com.num.Values;
 import com.num.helpers.DeviceHelper;
@@ -19,7 +20,6 @@ import com.num.helpers.LooperThread;
 import com.num.helpers.PingHelper;
 import com.num.listeners.ResponseListener;
 import com.num.models.ClientLog;
-
 import com.num.utils.SignalUtil;
 import com.num.utils.SignalUtil.SignalResult;
 
@@ -35,6 +35,7 @@ public class SignalStrengthTask extends ServerTask {
 
 	boolean signalRunning = true;
 	String signalValue = "";
+	LooperThread thread;
 
 	public SignalStrengthTask(Context context, Map<String, String> reqParams,
 			ResponseListener listener) {
@@ -45,7 +46,7 @@ public class SignalStrengthTask extends ServerTask {
 	public void runTask() {
 		
 		final TelephonyManager manager = (TelephonyManager) getContext().getSystemService(Context.TELEPHONY_SERVICE);
-		LooperThread thread = new LooperThread(new Runnable() {
+		thread = new LooperThread(new Runnable() {
 			
 			public void run() {
 				MyPhoneStateListener listener = new MyPhoneStateListener(manager);
@@ -105,7 +106,9 @@ public class SignalStrengthTask extends ServerTask {
 			signalValue = strength;
 			signalRunning=false;
 			manager.listen(this, PhoneStateListener.LISTEN_NONE);
-			Looper.myLooper().quit();
+			if(Looper.myLooper()!=null){
+				thread.quit();
+			}
 		}
 
 		public void listen() {
