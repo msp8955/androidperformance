@@ -15,6 +15,7 @@
     <string name="skip">Skip</string>
     <string name="cancel">Cancel</string>
     <string name="testButton">Full Test</string>
+    <string name="testRunning">Please wait while we are waiting for test output.</string>
     <string name="pingButton">Latency</string>
     <string name="wifiButton">Wifi</string>
     <string name="usageButton">Usage</string>

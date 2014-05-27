@@ -8,6 +8,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -45,6 +48,7 @@ public class FullDisplayActivity extends TrackedActivity {
 	Values session;
 	TextView title;
 	ListView listview;
+	Button startTestBtn;
 	
 	//ImageView imageview;
 	TextView description;
@@ -57,18 +61,31 @@ public class FullDisplayActivity extends TrackedActivity {
 		super.onCreate(savedInstanceState);
 		activity = this;
 		session = (Values) this.getApplicationContext();		
-		Bundle extras = getIntent().getExtras();
-		String key = extras.getString("model_key");
-		serverhelper = new ThreadPoolHelper(5,10);
-		serverhelper.execute(TaskHelper.getTask(key, activity, new MeasurementListener()));
-		GAnalytics.log(GAnalytics.ACTION, "Click",key);
-		showLoadPage();
+		final Bundle extras = getIntent().getExtras();
+		final String key = extras.getString("model_key");
+		final String desc = extras.getString("model_description");
 		
+		showDisplayPage();
+		
+		title.setText(key.toUpperCase());
+		description.setText(desc);
+		startTestBtn.setOnClickListener(new OnClickListener() {
+ 
+			public void onClick(View arg0) {
+				showLoadPage();
+				serverhelper = new ThreadPoolHelper(5,10);
+				serverhelper.execute(TaskHelper.getTask(key, activity, new MeasurementListener()));
+				GAnalytics.log(GAnalytics.ACTION, "Click",key);
+			}
+ 
+		});
 		
 	}
 	
 	public void showLoadPage() {
-		setContentView(R.layout.load_screen);		
+//		setContentView(R.layout.load_screen);
+		startTestBtn.setText("Running " + title.getText().toString().toLowerCase() + " test...");
+		startTestBtn.setClickable(false);
 	}
 	
 	public void showDisplayPage() {
@@ -76,6 +93,7 @@ public class FullDisplayActivity extends TrackedActivity {
 		title =  (TextView) findViewById(R.id.start_title);
 		listview = (ListView) findViewById(R.id.main_list_view);	
 		description = (TextView) findViewById(R.id.description);
+		startTestBtn = (Button) findViewById(R.id.start_test);
 	}
 
 	@Override
@@ -227,12 +245,15 @@ public class FullDisplayActivity extends TrackedActivity {
 	private Handler UIHandler = new Handler(){
 		public void  handleMessage(Message msg) {
 			
-			showDisplayPage();
+//			showDisplayPage();
 			
 			MainModel item = (MainModel)msg.obj;
+			
+			startTestBtn.setText("Re-run Test");
+			startTestBtn.setClickable(true);
 
-			title.setText(item.getTitle().toUpperCase());
-			description.setText(item.getDescription());
+//			title.setText(item.getTitle().toUpperCase());
+//			description.setText(item.getDescription());
 
 			//imageview.setImageResource(item.getIcon());
 
