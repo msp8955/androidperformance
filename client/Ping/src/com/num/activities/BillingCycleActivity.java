@@ -22,7 +22,7 @@ public class BillingCycleActivity extends Activity {
 			, "26", "27", "28", "29", "30", "31"};
 	private WheelView wheel;
 	private boolean force;
-	private Button saveButton;
+	private Button saveButton, skipButton;
 	private int previous;
 	
 	@Override
@@ -49,6 +49,7 @@ public class BillingCycleActivity extends Activity {
 		previous = userhelp.getBillingCycle();
 		wheel = (WheelView) findViewById(R.id.billing_cycle_wheel);
 		saveButton = (Button) findViewById(R.id.billing_cycle_save_button);
+		skipButton = (Button) findViewById(R.id.billing_cycle_skip_button);
 		ArrayWheelAdapter<String> adapter =
 	            new ArrayWheelAdapter<String>(this, dates);
 		adapter.setTextSize(48);
@@ -76,6 +77,23 @@ public class BillingCycleActivity extends Activity {
 				startActivity(myIntent);
 			}
 			
+		});
+		skipButton.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				if(!PreferencesUtil.contains("billingCycle", BillingCycleActivity.this)){
+					userhelp.setBillingCycle(1);
+				}
+				finish();
+				if(force){
+					finishActivity(0);
+					return;		
+				}
+				else{
+					Intent myIntent = new Intent(v.getContext(), DataFormActivity.class);
+					myIntent.putExtra("force", force);
+					startActivity(myIntent);
+				}
+			}
 		});
 	}
 	@Override

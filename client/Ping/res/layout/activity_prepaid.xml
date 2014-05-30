@@ -123,11 +123,11 @@
             android:text="@string/save" />
 
         <Button
-            android:id="@+id/prepaid_cost_cancel_button"
+            android:id="@+id/prepaid_cost_skip_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.50"
-            android:text="@string/cancel" />
+            android:text="@string/skip" />
 
     </LinearLayout>
 

@@ -40,7 +40,7 @@
         <kankan.wheel.widget.WheelView
             android:id="@+id/billing_cycle_wheel"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="250dp"
             android:layout_gravity="center_vertical"
             android1:layout_centerHorizontal="true"
             android1:layout_centerVertical="true" />
@@ -52,5 +52,10 @@
         android1:layout_width="match_parent"
         android1:layout_height="wrap_content"
         android1:text="@string/save" />
+    <Button
+        android1:id="@+id/billing_cycle_skip_button"
+        android1:layout_width="match_parent"
+        android1:layout_height="wrap_content"
+        android1:text="@string/skip" />
 
 </LinearLayout>

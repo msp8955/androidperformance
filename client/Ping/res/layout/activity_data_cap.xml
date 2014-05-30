@@ -44,5 +44,10 @@
         android1:layout_width="match_parent"
         android1:layout_height="wrap_content"
         android1:text="@string/save" />
+    <Button
+        android1:id="@+id/data_cap_skip_button"
+        android1:layout_width="match_parent"
+        android1:layout_height="wrap_content"
+        android1:text="@string/skip" />
 
 </LinearLayout>

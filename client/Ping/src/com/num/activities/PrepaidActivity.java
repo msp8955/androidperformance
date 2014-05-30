@@ -21,7 +21,7 @@ public class PrepaidActivity extends Activity{
 	private boolean force;
 	private final String currency[] = {"USD","CNY","EUR","GBP","INR","JPY","KRW","RUB","TND","ZAR"};
 	private WheelView wheel;
-	private Button saveButton, cancelButton;
+	private Button saveButton, skipButton;
 	private EditText costInput, dataInput;
 	private UserDataHelper userhelp;
 	private Activity activity;
@@ -65,7 +65,7 @@ public class PrepaidActivity extends Activity{
 			startActivity(myIntent);
 		}
 		saveButton = (Button) findViewById(R.id.prepaid_cost_save_button);
-		cancelButton = (Button) findViewById(R.id.prepaid_cost_cancel_button);
+		skipButton = (Button) findViewById(R.id.prepaid_cost_skip_button);
 		wheel = (WheelView) findViewById(R.id.prepaid_cost_wheel);
 		costInput = (EditText) findViewById(R.id.prepaid_cost_input);
 		dataInput = (EditText) findViewById(R.id.prepaid_data_input);
@@ -102,7 +102,7 @@ public class PrepaidActivity extends Activity{
 				}
 			}
 		});
-		cancelButton.setOnClickListener(new OnClickListener(){
+		skipButton.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				if(!PreferencesUtil.contains("currency", PrepaidActivity.this))
 					userhelp.setCurrency("USD");

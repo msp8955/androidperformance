@@ -25,7 +25,7 @@ public class DataCapActivity extends Activity {
 	private String[] limit_text = {"Don't have one","Don't know","Prepaid","250 MB","500 MB","750 MB","1 GB","2 GB","More than 2GB"};
 	private boolean force = false;
 	private UserDataHelper userhelp;
-	private Button saveButton;
+	private Button saveButton, skipButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,7 @@ public class DataCapActivity extends Activity {
 			radioGroup.addView(radiobutton, rg);
 		}
 		saveButton = (Button) findViewById(R.id.data_cap_save_button);
+		skipButton = (Button) findViewById(R.id.data_cap_skip_button);
 		saveButton.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				int checkedRadioButton = radioGroup.getCheckedRadioButtonId();
@@ -105,6 +106,24 @@ public class DataCapActivity extends Activity {
 				startActivity(myIntent);
 			}
 			
+		});
+		skipButton.setOnClickListener(new OnClickListener(){
+			public void onClick(View v) {
+				if(!PreferencesUtil.contains("dataLimit", DataCapActivity.this)){
+					userhelp.setDataCap(limit_val[0]); //default to "don't know"
+					userhelp.setBillingCost(-1);
+				}
+				finish();
+				if(force){
+					finishActivity(0);
+					return;		
+				}
+				else{
+					Intent myIntent = new Intent(v.getContext(), DataFormActivity.class);
+					myIntent.putExtra("force", force);
+					startActivity(myIntent);
+				}
+			}
 		});
 	}
 
