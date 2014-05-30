@@ -39,7 +39,6 @@
             android:weightSum="10" >
 
             <RelativeLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/data_layout"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
@@ -75,7 +74,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/data_layout" >

@@ -52,6 +52,7 @@ public class FullDisplayActivity extends TrackedActivity {
 	
 	//ImageView imageview;
 	TextView description;
+	TextView description_sub;
 	Activity activity;
 	
 	private ThreadPoolHelper serverhelper;
@@ -60,15 +61,22 @@ public class FullDisplayActivity extends TrackedActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		activity = this;
-		session = (Values) this.getApplicationContext();		
+		session = (Values) this.getApplicationContext();
+		showDisplayPage();
+		
 		final Bundle extras = getIntent().getExtras();
 		final String key = extras.getString("model_key");
-		final String desc = extras.getString("model_description");
-		
-		showDisplayPage();
+		String desc = extras.getString("model_description");
+		String desc_sub;
 		
 		title.setText(key.toUpperCase());
 		description.setText(desc);
+		try{
+			desc_sub = extras.getString("model_description_sub");
+			description_sub.setText(desc_sub);
+			description_sub.setTextSize(15);
+		}catch(NullPointerException e){
+		}
 		startTestBtn.setOnClickListener(new OnClickListener() {
  
 			public void onClick(View arg0) {
@@ -93,6 +101,7 @@ public class FullDisplayActivity extends TrackedActivity {
 		title =  (TextView) findViewById(R.id.start_title);
 		listview = (ListView) findViewById(R.id.main_list_view);	
 		description = (TextView) findViewById(R.id.description);
+		description_sub = (TextView) findViewById(R.id.description_sub);
 		startTestBtn = (Button) findViewById(R.id.start_test);
 	}
 
@@ -249,7 +258,7 @@ public class FullDisplayActivity extends TrackedActivity {
 			
 			MainModel item = (MainModel)msg.obj;
 			
-			startTestBtn.setText("Re-run Test");
+			startTestBtn.setText("Re-run test");
 			startTestBtn.setClickable(true);
 
 //			title.setText(item.getTitle().toUpperCase());

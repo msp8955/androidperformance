@@ -1,7 +1,10 @@
 package com.num.ui.viewgenerator;
 
+import java.io.ByteArrayOutputStream;
+
 import com.num.activities.FullDisplayActivity;
 import com.num.activities.GraphActivity;
+import com.num.activities.IndividualAppActivity;
 import com.num.database.DatabasePicker;
 import com.num.database.datasource.ApplicationDataSource;
 import com.num.database.datasource.LatencyDataSource;
@@ -14,9 +17,10 @@ import com.num.utils.DeviceUtil;
 import com.num.R;
 import com.num.Values;
 
-
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -56,7 +60,7 @@ public class ApplicationViewGenerator extends ViewGenerator{
 		holder.progress.setProgress(getValue(app.getTotal()));
 		holder.second.setText(getOutput(app.getTotal()));		
 		holder.imageview.setImageDrawable(app.getAppIcon());
-		holder.third.setText(100*app.getTotal()/totalData + "%");
+		holder.third.setText(getValue(app.getTotal()) + "%");
 		
 		holder.linear.setOnClickListener(new View.OnClickListener() {
 			
@@ -66,8 +70,22 @@ public class ApplicationViewGenerator extends ViewGenerator{
 				picker.filterBy(ApplicationMapping.COLUMN_DIRECTION,"total","Type");
 				picker.filterBy(ApplicationMapping.COLUMN_NAME,app.getName(),"Application");
 				picker.setDisplayOutlier(false);
-				Intent myIntent = new Intent(context, GraphActivity.class);				
-                context.startActivity(myIntent);
+				Intent myIntent = new Intent(context, IndividualAppActivity.class);
+				
+				Bitmap bitmap= ((BitmapDrawable)app.getAppIcon()).getBitmap();
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+				byte[] b = baos.toByteArray();
+				
+				myIntent.putExtra("app_name", app.getName());
+				myIntent.putExtra("app_package_name", app.getPackageName());
+				myIntent.putExtra("app_progress", getValue(app.getTotal()));
+				myIntent.putExtra("app_data_used", getOutput(app.getTotal()));
+				myIntent.putExtra("total_data_used", getOutput(totalData));
+				myIntent.putExtra("sent_data", getOutput(app.getTotal_sent()));
+				myIntent.putExtra("recv_data", getOutput(app.getTotal_recv()));
+				myIntent.putExtra("app_icon", b);
+				context.startActivity(myIntent);
 				
 			}
 		});
@@ -83,8 +101,9 @@ public class ApplicationViewGenerator extends ViewGenerator{
 	}
 	
 	private int getValue(long val){
-		int total = (int) (val/1024/1024);
-		return (int)Math.min(Math.max(total,5), 100);
+		int app = (int) (val/1024/1024);
+		int total = (int) (totalData/1024/1024);
+		return (int)Math.min(Math.max(app*100/total, 1), 100);
 	}
 
 	

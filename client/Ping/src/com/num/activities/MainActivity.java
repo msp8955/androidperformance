@@ -73,6 +73,7 @@ public class MainActivity extends Activity {
 								FullDisplayActivity.class);
 						myIntent.putExtra("model_key", "usage");
 						myIntent.putExtra("model_description", "Network usage per application");
+						myIntent.putExtra("model_description_sub", "Detailed data usage by app, % of used data ");
 						startActivity(myIntent);
 					}
 				}, R.drawable.usage, null)));
