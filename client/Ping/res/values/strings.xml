@@ -4,6 +4,9 @@
     <string name="app_name">My Speed Test</string>
     <string name="title_activity_privacy">TERMS AND CONDITIONS</string>
     <string name="title_activity_start">StartActivity</string>
+    <string name="step_page_1_of_3">[Step: 1 of 3]</string>
+    <string name="step_page_2_of_3">[Step: 2 of 3]</string>
+    <string name="step_page_3_of_3">[Step: 3 of 3]</string>
     <string name="title_activity_data_cap">CHOOSE DATA LIMIT</string>
     <string name="title_activity_billing_cycle">CHOOSE BILLING CYCLE</string>
     <string name="title_activity_billing_cost">CHOOSE BILLING COST</string>

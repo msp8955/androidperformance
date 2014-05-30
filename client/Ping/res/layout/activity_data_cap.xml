@@ -9,6 +9,14 @@
     android:paddingTop="@dimen/activity_vertical_margin" >
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="@string/step_page_1_of_3"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/dark_gray" />
+    
+    <TextView
         android:id="@+id/data_cost_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,22 +40,44 @@
         android:text="@string/message_data_cap"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <RadioGroup
-        android1:id="@+id/data_cap_radio_group"
+    <ScrollView
+        android1:id="@+id/scrollView1"
         android1:layout_width="match_parent"
-        android1:layout_height="0dip"
-        android1:layout_weight="0.85" >
-    </RadioGroup>
+        android:layout_height="0dip"
+        android:layout_weight="0.85"
+        android:isScrollContainer="true"
+        android:padding="0dp"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarSize="30dp" >
+        
+	    <RadioGroup
+	        android1:id="@+id/data_cap_radio_group"
+	        android1:layout_width="match_parent"
+	        android1:layout_height="0dip" >
+	    </RadioGroup>
+    </ScrollView>
 
-    <Button
-        android1:id="@+id/data_cap_save_button"
-        android1:layout_width="match_parent"
-        android1:layout_height="wrap_content"
-        android1:text="@string/save" />
-    <Button
-        android1:id="@+id/data_cap_skip_button"
-        android1:layout_width="match_parent"
-        android1:layout_height="wrap_content"
-        android1:text="@string/skip" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layout_gravity="center_horizontal" >
+
+        <Button
+	        android1:id="@+id/data_cap_save_button"
+	        android1:layout_width="match_parent"
+	        android1:layout_height="wrap_content"
+	        android:layout_weight="0.50"
+	        android1:text="@string/save" />
+	    <Button
+	        android1:id="@+id/data_cap_skip_button"
+	        android1:layout_width="match_parent"
+	        android1:layout_height="wrap_content"
+	        android:layout_weight="0.50"
+	        android1:text="@string/skip" />
+    
+    </LinearLayout>
+    
+    
 
 </LinearLayout>
