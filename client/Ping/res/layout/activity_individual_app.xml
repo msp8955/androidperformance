@@ -176,50 +176,6 @@
                     
                 </LinearLayout>
 
-                <!--LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="3dp"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical" >
-
-                    <ListView
-                        android:id="@+id/individual_app_page_list_view"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:listSelector="@android:color/transparent" >
-                    </ListView>
-                    
-                    <RelativeLayout                        
-                        android:layout_width="fill_parent"
-                        android:layout_height="200dp"
-                        android:layout_marginBottom="0dp" >
-                        
-                        <ProgressBar
-                            android:id="@+id/individual_app_page_load"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true" />
-
-                        <com.num.graph.TimelineView
-                            android:id="@+id/individual_app_page_timeline"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="0dp" />
-
-                        <com.num.graph.BarView
-                            android:id="@+id/individual_app_page_barchart"
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="0dp" />
-
-                    </RelativeLayout>
-
-                </LinearLayout-->
-                
                 <RelativeLayout
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
@@ -351,6 +307,55 @@
 	                
 	            </RelativeLayout>
                 
+                <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/dark_gray"
+                        android:orientation="horizontal" />
+                
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:orientation="vertical" >
+
+                    <ListView
+                        android:id="@+id/individual_app_page_list_view"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="0"
+                        android:listSelector="@android:color/transparent" >
+                    </ListView>
+                    
+                    <RelativeLayout                        
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="0dp" >
+                        
+                        <ProgressBar
+                            android:id="@+id/individual_app_page_load"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true" />
+
+                        <com.num.graph.TimelineView
+                            android:id="@+id/individual_app_page_timeline"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="0dp" />
+
+                        <com.num.graph.BarView
+                            android:id="@+id/individual_app_page_barchart"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="0dp" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
                 
             </LinearLayout>
         </RelativeLayout>

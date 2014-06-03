@@ -87,20 +87,21 @@ public class IndividualAppActivity extends TrackedActivity{
 		recv_data.setText(bundle.getString("recv_data"));
 		percent_data.setText(bundle.getInt("app_progress") + "%");
 		
-//		if (picker.getChartType().equals("area"))
-//			chart = (TimelineView) this.findViewById(R.id.individual_app_page_timeline);
-//		else if (picker.getChartType().equals("bar")){
-//			chart = (ChartView) this.findViewById(R.id.individual_app_page_barchart);
-//		}
-//		load = (ProgressBar) this.findViewById(R.id.individual_app_page_load);
-//		listview = (ListView) findViewById(R.id.individual_app_page_list_view);
-//		chart.setPicker(picker);
+		if (picker.getChartType().equals("area"))
+			chart = (TimelineView) this.findViewById(R.id.individual_app_page_timeline);
+		else if (picker.getChartType().equals("bar")){
+			chart = (ChartView) this.findViewById(R.id.individual_app_page_barchart);
+		}
+		load = (ProgressBar) this.findViewById(R.id.individual_app_page_load);
+		listview = (ListView) findViewById(R.id.individual_app_page_list_view);
+		chart.setPicker(picker);
 		title.setText(picker.getTitle());
-//
-//		chart.constructGraph();
-//		//updateGraphHandler.sendEmptyMessage(0);
-//
-//		populatePicker();
+
+		chart.constructGraph();
+		updateGraphHandler.sendEmptyMessage(0);
+
+		listview.setVisibility(View.INVISIBLE);
+		populatePicker();
 		
 	}
 
@@ -128,7 +129,7 @@ public class IndividualAppActivity extends TrackedActivity{
 	public Handler loadEnd = new Handler() {
 
 		public void handleMessage(Message msg) {
-			load.setVisibility(View.VISIBLE);
+			load.setVisibility(View.INVISIBLE);
 			
 		}
 

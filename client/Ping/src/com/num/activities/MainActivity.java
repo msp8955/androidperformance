@@ -61,6 +61,7 @@ public class MainActivity extends Activity {
 						myIntent.putExtra("model_key", "throughput");
 						myIntent.putExtra("model_description", "Upload and Download speeds");
 						myIntent.putExtra("time", "45");
+						myIntent.putExtra("layout", "full");
 						startActivity(myIntent);
 						GAnalytics.log(GAnalytics.ACTION, "Click", "Speed Test");
 					}
@@ -70,10 +71,11 @@ public class MainActivity extends Activity {
 				"Get data breakdown by app", new Handler() {
 					public void handleMessage(Message msg) {
 						Intent myIntent = new Intent(activity,
-								FullDisplayActivity.class);
+								UsageDisplayActivity.class);
 						myIntent.putExtra("model_key", "usage");
 						myIntent.putExtra("model_description", "Network usage per application");
 						myIntent.putExtra("model_description_sub", "Detailed data usage by app, % of used data ");
+						myIntent.putExtra("layout", "usage");
 						startActivity(myIntent);
 					}
 				}, R.drawable.usage, null)));
@@ -85,6 +87,7 @@ public class MainActivity extends Activity {
 						myIntent.putExtra("model_key", "latency");
 						myIntent.putExtra("model_description", "Details of delay in milliseconds experienced on the network for the different destination servers");
 						myIntent.putExtra("time", "15");
+						myIntent.putExtra("layout", "full");
 						startActivity(myIntent);
 					}
 
