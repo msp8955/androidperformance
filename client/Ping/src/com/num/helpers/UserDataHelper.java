@@ -46,7 +46,7 @@ public class UserDataHelper {
 		return PreferencesUtil.getDataInt("dataenable", context);
 	}
 	public void setDataEnable(int val) {
-		PreferencesUtil.setDataInt("billingCost", val, context);
+		PreferencesUtil.setDataInt("dataenable", val, context);
 	}
 	public int getPrepaidData() {
 		return PreferencesUtil.getDataInt("prepaidData", context);
