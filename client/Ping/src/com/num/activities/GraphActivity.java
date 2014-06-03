@@ -103,7 +103,7 @@ public class GraphActivity extends TrackedActivity {
 		title.setText(picker.getTitle());
 
 		chart.constructGraph();
-		//updateGraphHandler.sendEmptyMessage(0);
+		updateGraphHandler.sendEmptyMessage(0);
 
 		populatePicker();
 		
@@ -133,7 +133,7 @@ public class GraphActivity extends TrackedActivity {
 	public Handler loadEnd = new Handler() {
 
 		public void handleMessage(Message msg) {
-			load.setVisibility(View.VISIBLE);
+			load.setVisibility(View.INVISIBLE);
 			
 		}
 

@@ -17,48 +17,33 @@ import com.num.R;
 
 
 
-public class DataFormActivity extends TrackedActivity 
-{
+public class DataFormActivity extends Activity {
 
-	//private TableLayout table;
-
+	private UserDataHelper userhelp;
 	private Activity activity;
-
 	private Button saveButton;
 	private RadioGroup rGroup;
-	final RadioButton[] rb = new RadioButton[5];
-	UserDataHelper userhelp;
-	Boolean force = false;
-	int[] limit_val= {1,0};
+	private Boolean force = false;
+	private final String[] limit_text = {"yes","no"};
+	private final int[] limit_val= {1,0};
 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-
-		Bundle extras = getIntent().getExtras();
+		setContentView(R.layout.dataform_screen);
 		activity = this;
 		userhelp = new UserDataHelper(activity);
 		int old_val= userhelp.getDataEnable();
-
-
+		
+		Bundle extras = getIntent().getExtras();
 		try{
 			force = extras.getBoolean("force");
 		}
 		catch (Exception e){
 			force = false;
 		}
-
-
-
-		setContentView(R.layout.dataform_screen);
-
-
-		String[] limit_text = {"yes","no"};
-
-
-
 
 		saveButton = (Button) this.findViewById(R.id.save);
 		rGroup = (RadioGroup) findViewById(R.id.radio_group);

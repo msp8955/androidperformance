@@ -36,6 +36,7 @@ public class IndividualAppActivity extends TrackedActivity{
 	private ImageView imageview;
 	private TextView app_data_used;
 	private TextView total_data_used;
+	private TextView total_app_data_used;
 	private TextView sent_data;
 	private TextView recv_data;
 	private TextView percent_data;
@@ -70,6 +71,7 @@ public class IndividualAppActivity extends TrackedActivity{
 		imageview = (ImageView) this.findViewById(R.id.individual_app_page_icon);
 		app_data_used =  (TextView) this.findViewById(R.id.individual_app_page_app_usage);
 		total_data_used =  (TextView) this.findViewById(R.id.individual_app_page_total_usage);
+		total_app_data_used =  (TextView) this.findViewById(R.id.individual_app_page_total_data_used_by_app_value);
 		sent_data = (TextView) this.findViewById(R.id.individual_app_page_sent_data_used_by_app_value);
 		recv_data = (TextView) this.findViewById(R.id.individual_app_page_recv_data_used_by_app_value);
 		percent_data = (TextView) this.findViewById(R.id.individual_app_page_percentage_used_by_app_value);
@@ -83,6 +85,7 @@ public class IndividualAppActivity extends TrackedActivity{
 		imageview.setImageBitmap(bmp);
 		app_data_used.setText("App Usage: " + bundle.getString("app_data_used"));
 		total_data_used.setText("Total Used: " + bundle.getString("total_data_used"));
+		total_app_data_used.setText(bundle.getString("app_data_used"));
 		sent_data.setText(bundle.getString("sent_data"));
 		recv_data.setText(bundle.getString("recv_data"));
 		percent_data.setText(bundle.getInt("app_progress") + "%");
