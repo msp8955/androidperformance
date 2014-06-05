@@ -53,6 +53,9 @@ public class PreferencesUtil {
 		return getPreferences(context).getInt(str, -1);
 	}
 	
+	public static boolean getDataBoolean(String str, Context context){
+		return getPreferences(context).getBoolean(str, false);
+	}
 	
 	public static void setDataInt(String key,int val,Context context){
 		Editor editor = getPreferences(context).edit();
@@ -64,6 +67,13 @@ public class PreferencesUtil {
 		Editor editor = getPreferences(context).edit();
 		
 		editor.putString(key, val);
+		editor.commit();
+	}
+	
+	public static void setDataBoolean(String key, boolean val, Context context){
+		Editor editor = getPreferences(context).edit();
+		
+		editor.putBoolean(key, val);
 		editor.commit();
 	}
 
