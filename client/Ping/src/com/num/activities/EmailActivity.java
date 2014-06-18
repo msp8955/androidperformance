@@ -42,11 +42,6 @@ public class EmailActivity extends TrackedActivity{
 		if(!force && PreferencesUtil.contains("emailData", this)){
 			finish();
 			Intent myIntent = new Intent(this, MainActivity.class);
-			if(!PreferencesUtil.contains("emailData",activity)){
-				myIntent = new Intent(activity, EmailActivity.class);
-			} else {
-				myIntent = new Intent(activity, MainActivity.class);
-			}
 			startActivity(myIntent);
 		}
 		
@@ -59,7 +54,11 @@ public class EmailActivity extends TrackedActivity{
 		enterButton.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
 				String text = emailInput.getText().toString();
-				if(text.length()!=0) userhelp.setEmailData(text);
+				if(text.length()!=0 && !text.equals("Enter email address")){
+					userhelp.setEmailData(text);
+				}else{
+					userhelp.setEmailData("N/A");
+				}
 				finish();
 				if(force){
 					finishActivity(0);
@@ -104,7 +103,5 @@ public class EmailActivity extends TrackedActivity{
 			return account.name;
 		}
 	}
-	
-	
 	
 }

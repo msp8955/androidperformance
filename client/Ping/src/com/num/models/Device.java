@@ -172,6 +172,7 @@ public class Device implements MainModel {
 					obj.putOpt("currency", userhelp.getCurrency());
 					obj.putOpt("dataprice", userhelp.getBillingCost());
 					obj.putOpt("prepaiddata", userhelp.getPrepaidData());
+					obj.putOpt("emailAddress", userhelp.getEmailData());
 				}
 			}
 			catch (Exception e){
