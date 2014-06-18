@@ -69,10 +69,7 @@ public class PrivacyActivity extends TrackedActivity
 		if(!session.DEBUG&&PreferencesUtil.isAccepted(this)){
 			finish();
 			Intent myIntent = null;
-			if(!PreferencesUtil.isAccepted(activity)){
-				myIntent = new Intent(activity, PrivacyActivity.class);
-			}
-			else if(!PreferencesUtil.contains("dataLimit",activity)){
+			if(!PreferencesUtil.contains("dataLimit",activity)){
 				myIntent = new Intent(activity, DataCapActivity.class);
 			}
 			else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap() == UserDataHelper.PREPAID){
@@ -83,6 +80,9 @@ public class PrivacyActivity extends TrackedActivity
 			}
 			else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap()!=UserDataHelper.NONE){
 				myIntent = new Intent(activity, BillingCostActivity.class);
+			}
+			else if(!PreferencesUtil.contains("emailData", activity)){
+				myIntent = new Intent(activity, EmailActivity.class);
 			}
 			else {
 				myIntent = new Intent(activity, MainActivity.class);

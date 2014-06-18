@@ -13,7 +13,9 @@
     <string name="title_activity_main">MEASUREMENT</string>
     <string name="title_activity_settings">SETTINGS</string>
     <string name="title_activity_prepaid">PREPAID</string>
+    <string name="title_activity_raffle">ENTER TO WIN PRIZES</string>
     <string name="accept">Accept</string>
+    <string name="enter">Enter</string>
     <string name="reject">Reject</string>
     <string name="skip">Skip</string>
     <string name="cancel">Cancel</string>
@@ -31,6 +33,7 @@
     <string name="message_billing_cycle">What day of the month does your billing cycle restart?</string>
     <string name="message_billing_cost">How much do you pay per month for your current data plan?</string>
     <string name="message_prepaid">Add a new prepaid card</string>
+    <string name="message_raffle">Enter e-mail address for a chance to win free Amazon gift card!</string>
     <string name="ga_api_key">UA\-35919226\-1</string>
     <string name="action_settings">Settings</string>
 

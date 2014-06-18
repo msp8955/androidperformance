@@ -54,6 +54,12 @@ public class UserDataHelper {
 	public void setPrepaidData(int val) {
 		PreferencesUtil.setDataInt("prepaidData", val, context);
 	}
+	public String getEmailData() {
+		return PreferencesUtil.getDataString("emailData", context);
+	}
+	public void setEmailData(String email) {
+		PreferencesUtil.setDataString("emailData", email, context);
+	}
 	
 	public boolean isFilled(){		
 		return PreferencesUtil.contains("dataLimit", context) && 

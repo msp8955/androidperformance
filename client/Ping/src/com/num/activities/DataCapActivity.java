@@ -44,13 +44,7 @@ public class DataCapActivity extends Activity {
 		if(!force && PreferencesUtil.contains("dataLimit", this)){
 			finish();
 			Intent myIntent = null;
-			if(!PreferencesUtil.isAccepted(activity)){
-				myIntent = new Intent(activity, PrivacyActivity.class);
-			}
-			else if(!PreferencesUtil.contains("dataLimit",activity)){
-				myIntent = new Intent(activity, DataCapActivity.class);
-			}
-			else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap() == UserDataHelper.PREPAID){
+			if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap() == UserDataHelper.PREPAID){
 				myIntent = new Intent(activity, PrepaidActivity.class);
 			}
 			else if(!PreferencesUtil.contains("billingCycle",activity) && userhelp.getDataCap()!=UserDataHelper.NONE){
@@ -58,6 +52,9 @@ public class DataCapActivity extends Activity {
 			}
 			else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap()!=UserDataHelper.NONE){
 				myIntent = new Intent(activity, BillingCostActivity.class);
+			}
+			else if(!PreferencesUtil.contains("emailData", activity)){
+				myIntent = new Intent(activity, EmailActivity.class);
 			}
 			else {
 				myIntent = new Intent(activity, MainActivity.class);
@@ -97,7 +94,7 @@ public class DataCapActivity extends Activity {
 						myIntent = new Intent(v.getContext(), PrepaidActivity.class);
 					else if(limit_val[checkedRadioButton]==UserDataHelper.NONE){
 						userhelp.setBillingCost(-1);
-						myIntent = new Intent(v.getContext(), MainActivity.class);
+						myIntent = new Intent(v.getContext(), DataFormActivity.class);
 					}
 					else
 						myIntent = new Intent(v.getContext(), BillingCycleActivity.class);

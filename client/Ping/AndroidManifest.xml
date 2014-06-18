@@ -59,6 +59,12 @@
             android:screenOrientation="nosensor" >
         </activity>
         <activity
+            android:name="com.num.activities.EmailActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:label="@string/app_name"
+            android:screenOrientation="nosensor" >
+        </activity>
+        <activity
             android:name="com.num.activities.GraphActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"

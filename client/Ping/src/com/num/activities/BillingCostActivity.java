@@ -42,21 +42,9 @@ public class BillingCostActivity extends Activity {
 		//Skip if data is already present
 		if(!force && PreferencesUtil.contains("billingCost", this)){
 			finish();
-			Intent myIntent = new Intent(this, MainActivity.class);
-			if(!PreferencesUtil.isAccepted(activity)){
-				myIntent = new Intent(activity, PrivacyActivity.class);
-			}
-			else if(!PreferencesUtil.contains("dataLimit",activity)){
-				myIntent = new Intent(activity, DataCapActivity.class);
-			}
-			else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap() == UserDataHelper.PREPAID){
-				myIntent = new Intent(activity, PrepaidActivity.class);
-			}
-			else if(!PreferencesUtil.contains("billingCycle",activity) && userhelp.getDataCap()!=UserDataHelper.NONE){
-				myIntent = new Intent(activity, BillingCycleActivity.class);
-			}
-			else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap()!=UserDataHelper.NONE){
-				myIntent = new Intent(activity, BillingCostActivity.class);
+			Intent myIntent = null;
+			if(!PreferencesUtil.contains("emailData", activity)){
+				myIntent = new Intent(activity, EmailActivity.class);
 			}
 			else {
 				myIntent = new Intent(activity, MainActivity.class);
@@ -89,7 +77,13 @@ public class BillingCostActivity extends Activity {
 					return;
 				}
 				else{
-					Intent myIntent = new Intent(v.getContext(), DataFormActivity.class);
+					Intent myIntent = null;
+					if(!PreferencesUtil.contains("emailData", activity)){
+						myIntent = new Intent(v.getContext(), EmailActivity.class);
+					}
+					else {
+						myIntent = new Intent(v.getContext(), MainActivity.class);
+					}
 					myIntent.putExtra("force", force);
 					startActivity(myIntent);
 				}

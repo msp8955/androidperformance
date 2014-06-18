@@ -17,6 +17,7 @@ import android.widget.Button;
 
 public class BillingCycleActivity extends Activity {
 	private UserDataHelper userhelp;
+	private Activity activity;
 	private final String[] dates = {"Don't know", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
 			, "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25"
 			, "26", "27", "28", "29", "30", "31"};
@@ -29,7 +30,7 @@ public class BillingCycleActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_billing_cycle);
-		
+		activity = this;
 		Bundle extras = getIntent().getExtras();
 		try{
 			force = extras.getBoolean("force");
@@ -41,8 +42,21 @@ public class BillingCycleActivity extends Activity {
 		//Skip if data is already present
 		if(!force && PreferencesUtil.contains("billingCycle", this)){
 			finish();
-			Intent myIntent = new Intent(this, MainActivity.class);
+			Intent myIntent = null;
+			if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap() == UserDataHelper.PREPAID){
+				myIntent = new Intent(activity, PrepaidActivity.class);
+			}
+			else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap()!=UserDataHelper.NONE){
+				myIntent = new Intent(activity, BillingCostActivity.class);
+			}
+			else if(!PreferencesUtil.contains("emailData", activity)){
+				myIntent = new Intent(activity, EmailActivity.class);
+			}
+			else {
+				myIntent = new Intent(activity, MainActivity.class);
+			}
 			startActivity(myIntent);
+			
 		}
 		
 		userhelp = new UserDataHelper(this);
@@ -89,7 +103,7 @@ public class BillingCycleActivity extends Activity {
 					return;		
 				}
 				else{
-					Intent myIntent = new Intent(v.getContext(), DataFormActivity.class);
+					Intent myIntent = new Intent(v.getContext(), MainActivity.class);
 					myIntent.putExtra("force", force);
 					startActivity(myIntent);
 				}
