@@ -6,7 +6,6 @@
     android:orientation="vertical" >
 
     <ScrollView
-        android:id="@+id/vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.68"
@@ -22,6 +21,7 @@
 
           
             <LinearLayout
+                android:id="@+id/item_view_full_top_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
@@ -34,10 +34,9 @@
                     android:layout_marginLeft="3dp" >
 
                     <TextView
-                        android:id="@+id/start_title"
+                        android:id="@+id/title_item_view_usage"
                         android:layout_width="fill_parent"
                         android:layout_height="35dp"
-                        android:layout_below="@+id/start_title"
                         android:layout_marginBottom="5dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
@@ -56,7 +55,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/layout"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_marginBottom="10dp"
@@ -66,10 +64,9 @@
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/description"
+                        android:id="@+id/description_item_view_usage"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:gravity="center_vertical"
@@ -79,26 +76,18 @@
                         android:textSize="20dp" >
                     </TextView>
                     
-                    <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="1dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/dark_gray"
-                        android:orientation="horizontal" />
-
-                    <Button
-                        android:id="@+id/start_test"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
+                    <TextView
+						android:id="@+id/description_sub_item_view_usage"
+		                android:layout_width="fill_parent"
+		                android:layout_height="wrap_content"
+		                android:gravity="top"
+		                android:layout_marginBottom="10dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:gravity="fill"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/black"
-                        android:text="Start Test" />
-
+		                android:textColor="@color/dark_gray"
+		                android:textSize="15dp"
+		                />
+                    
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="1dp"
@@ -108,13 +97,23 @@
                         android:orientation="horizontal" />
 
                     <ListView
-                        android:id="@+id/main_list_view"
+                        android:id="@+id/main_list_view_item_view_usage"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"                        
                         android:listSelector="@android:color/transparent" >
                     </ListView>
+                    
                 </LinearLayout>
             </LinearLayout>
+            
+            <ProgressBar
+		      	android:id="@+id/item_view_full_progress_bar"
+		      	style="?android:attr/progressBarStyleLarge"
+		      	android:layout_width="wrap_content"
+		      	android:layout_height="wrap_content"
+		      	android:layout_below="@+id/item_view_full_top_layout"
+		      	android:layout_centerHorizontal="true" />
+            
         </RelativeLayout>
     </ScrollView>
 

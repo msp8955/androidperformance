@@ -57,7 +57,7 @@ public class MainActivity extends Activity {
 				"Get Down/Up speed, 40 sec", new Handler() {
 					public void handleMessage(Message msg) {
 						Intent myIntent = new Intent(activity,
-								FullDisplayActivity.class);
+								SpeedTestDisplayActivity.class);
 						myIntent.putExtra("model_key", "throughput");
 						myIntent.putExtra("model_description", "Upload and Download speeds");
 						myIntent.putExtra("time", "45");
@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
 				"Get data breakdown by app", new Handler() {
 					public void handleMessage(Message msg) {
 						Intent myIntent = new Intent(activity,
-								UsageDisplayActivity.class);
+								FullDisplayActivity.class);
 						myIntent.putExtra("model_key", "usage");
 						myIntent.putExtra("model_description", "Network usage per application");
 						myIntent.putExtra("model_description_sub", "Detailed data usage by app, % of used data ");
@@ -85,7 +85,8 @@ public class MainActivity extends Activity {
 						Intent myIntent = new Intent(activity,
 								FullDisplayActivity.class);
 						myIntent.putExtra("model_key", "latency");
-						myIntent.putExtra("model_description", "Details of delay in milliseconds experienced on the network for the different destination servers");
+						myIntent.putExtra("model_description", "Latency test");
+						myIntent.putExtra("model_description_sub", "Details of delay in milliseconds experienced on the network for the different destination servers");
 						myIntent.putExtra("time", "15");
 						myIntent.putExtra("layout", "full");
 						startActivity(myIntent);

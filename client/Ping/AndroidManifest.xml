@@ -89,7 +89,7 @@
             android:screenOrientation="nosensor" >
         </activity>
         <activity
-            android:name="com.num.activities.UsageDisplayActivity"
+            android:name="com.num.activities.SpeedTestDisplayActivity"
             android:configChanges="keyboardHidden|orientation"
             android:label="@string/app_name"
             android:screenOrientation="nosensor" >

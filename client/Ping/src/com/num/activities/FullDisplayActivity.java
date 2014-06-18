@@ -9,12 +9,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.apps.analytics.easytracking.TrackedActivity;
+import com.num.R;
 import com.num.Values;
 import com.num.helpers.GAnalytics;
 import com.num.helpers.TaskHelper;
@@ -41,18 +41,18 @@ import com.num.models.WarmupExperiment;
 import com.num.models.Wifi;
 import com.num.ui.UIUtil;
 import com.num.ui.adapter.ItemAdapter;
-import com.num.R;
 
-public class FullDisplayActivity extends TrackedActivity {
+public class FullDisplayActivity extends TrackedActivity{
 
-	Values session;
-	TextView title;
-	ListView listview;
-	Button startTestBtn;
+	private Values session;
+	private TextView title;
+	private ListView listview;
 	
 	//ImageView imageview;
-	TextView description;
-	Activity activity;
+	private TextView description;
+	private TextView description_sub;
+	private Activity activity;
+	private ProgressBar spinner;
 	
 	private ThreadPoolHelper serverhelper;
 	
@@ -63,37 +63,35 @@ public class FullDisplayActivity extends TrackedActivity {
 		session = (Values) this.getApplicationContext();
 		showDisplayPage();
 		
+		spinner = (ProgressBar)findViewById(R.id.item_view_full_progress_bar);
+		spinner.setVisibility(View.VISIBLE);
+		
 		final Bundle extras = getIntent().getExtras();
 		final String key = extras.getString("model_key");
 		String desc = extras.getString("model_description");
+		String desc_sub = "";
+		try{
+			desc_sub = extras.getString("model_description_sub");;
+		}catch(Exception e){
+			
+		}
 		
 		title.setText(key.toUpperCase());
 		description.setText(desc);
-		startTestBtn.setOnClickListener(new OnClickListener() {
- 
-			public void onClick(View arg0) {
-				showLoadPage();
-				serverhelper = new ThreadPoolHelper(5,10);
-				serverhelper.execute(TaskHelper.getTask(key, activity, new MeasurementListener()));
-				GAnalytics.log(GAnalytics.ACTION, "Click",key);
-			}
- 
-		});
+		description_sub.setText(desc_sub);
 		
-	}
-	
-	public void showLoadPage() {
-//		setContentView(R.layout.load_screen);
-		startTestBtn.setText("Running " + title.getText().toString().toLowerCase() + " test...");
-		startTestBtn.setClickable(false);
+		serverhelper = new ThreadPoolHelper(5,10);
+		serverhelper.execute(TaskHelper.getTask(key, activity, new MeasurementListener()));
+		GAnalytics.log(GAnalytics.ACTION, "Click",key);
+		
 	}
 	
 	public void showDisplayPage() {
 		setContentView(R.layout.item_view_full);
-		title =  (TextView) findViewById(R.id.start_title);
-		listview = (ListView) findViewById(R.id.main_list_view);	
-		description = (TextView) findViewById(R.id.description);
-		startTestBtn = (Button) findViewById(R.id.start_test);
+		title =  (TextView) findViewById(R.id.title_item_view_usage);
+		listview = (ListView) findViewById(R.id.main_list_view_item_view_usage);	
+		description = (TextView) findViewById(R.id.description_item_view_usage);
+		description_sub = (TextView) findViewById(R.id.description_sub_item_view_usage);
 	}
 
 	@Override
@@ -247,8 +245,7 @@ public class FullDisplayActivity extends TrackedActivity {
 			
 			MainModel item = (MainModel)msg.obj;
 			
-			startTestBtn.setText("Re-run test");
-			startTestBtn.setClickable(true);
+			spinner.setVisibility(View.GONE);
 
 			ArrayList<Row> cells = item.getDisplayData(activity);
 
@@ -257,8 +254,6 @@ public class FullDisplayActivity extends TrackedActivity {
 				for(Row cell: cells)
 					itemadapter.add(cell);
 				listview.setAdapter(itemadapter);
-
-
 				itemadapter.notifyDataSetChanged();
 				UIUtil.setListViewHeightBasedOnChildren(listview,itemadapter);
 			}
