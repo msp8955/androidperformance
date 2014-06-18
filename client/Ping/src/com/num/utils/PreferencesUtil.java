@@ -53,6 +53,10 @@ public class PreferencesUtil {
 		return getPreferences(context).getInt(str, -1);
 	}
 	
+	public static float getDataFloat(String str,Context context){
+		return getPreferences(context).getFloat(str, (float) -1.0);
+	}
+	
 	public static boolean getDataBoolean(String str, Context context){
 		return getPreferences(context).getBoolean(str, false);
 	}
@@ -63,6 +67,13 @@ public class PreferencesUtil {
 		editor.putInt(key,val);
 		editor.commit();
 	}
+	
+	public static void setDataFloat(String key, float val,Context context){
+		Editor editor = getPreferences(context).edit();
+		editor.putFloat(key, val);
+		editor.commit();
+	}
+	
 	public static void setDataString(String key,String val,Context context){
 		Editor editor = getPreferences(context).edit();
 		

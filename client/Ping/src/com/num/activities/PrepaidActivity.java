@@ -70,14 +70,14 @@ public class PrepaidActivity extends Activity{
 				String dataString = dataInput.getText().toString();
 				if(costString.length()==0 || dataString.length()==0) return;
 				int cost = Integer.parseInt(costString);
-				int data = Integer.parseInt(dataString);
+				float data = Float.parseFloat(dataString);
 				if(radioGroup.getCheckedRadioButtonId()==1){
 					data = data*1000;
 				}
 				String curr = currency[wheel.getCurrentItem()];
 				userhelp.setCurrency(curr);
 				userhelp.setBillingCost(cost);
-				userhelp.setPrepaidData(data);
+				userhelp.setPrepaidData((float) data);
 				finish();
 				if(force){
 					finishActivity(0);
@@ -103,7 +103,7 @@ public class PrepaidActivity extends Activity{
 				if(!PreferencesUtil.contains("billingCost", PrepaidActivity.this))
 					userhelp.setBillingCost(-1);
 				if(!PreferencesUtil.contains("prepaidData", PrepaidActivity.this))
-					userhelp.setPrepaidData(0);
+					userhelp.setPrepaidData(0f);
 				finish();
 				if(force){
 					finishActivity(0);

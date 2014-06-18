@@ -70,7 +70,7 @@ public class BillingCostActivity extends Activity {
 				String curr = currency[wheel.getCurrentItem()];
 				userhelp.setCurrency(curr);
 				userhelp.setBillingCost(cost);
-				userhelp.setPrepaidData(0);
+				userhelp.setPrepaidData(0f);
 				finish();
 				if(force){
 					finishActivity(0);
@@ -96,7 +96,7 @@ public class BillingCostActivity extends Activity {
 				if(!PreferencesUtil.contains("billingCost", BillingCostActivity.this))
 					userhelp.setBillingCost(-1);
 				if(!PreferencesUtil.contains("prepaidData", BillingCostActivity.this))
-					userhelp.setPrepaidData(0);
+					userhelp.setPrepaidData(0f);
 				finish();
 				if(force){
 					finishActivity(0);

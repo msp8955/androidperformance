@@ -48,11 +48,11 @@ public class UserDataHelper {
 	public void setDataEnable(int val) {
 		PreferencesUtil.setDataInt("dataenable", val, context);
 	}
-	public int getPrepaidData() {
-		return PreferencesUtil.getDataInt("prepaidData", context);
+	public float getPrepaidData() {
+		return PreferencesUtil.getDataFloat("prepaidData", context);
 	}
-	public void setPrepaidData(int val) {
-		PreferencesUtil.setDataInt("prepaidData", val, context);
+	public void setPrepaidData(float data) {
+		PreferencesUtil.setDataFloat("prepaidData", data, context);
 	}
 	public String getEmailData() {
 		return PreferencesUtil.getDataString("emailData", context);
