@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.PortUnreachableException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
@@ -77,7 +78,11 @@ public class LossHelper
 			int seed = 0;
 			while(!received.equals("terminate"))
 			{
-				clientSocket.receive(receive_packet);
+				try{
+					clientSocket.receive(receive_packet);
+				}catch(Exception e){
+					continue;
+				}
 				long timestamp = new Date().getTime();//System.currentTimeMillis();
 				recvd++;
 				received = null;
