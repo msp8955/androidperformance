@@ -20,7 +20,9 @@ public class GAnalytics {
 	
 	public static void log(String category,String action,String label,int value){
 		try{
-		EasyTracker.getTracker().trackEvent(category,action,label,value);
+			// causes nullpointerexception in easytracker. 
+			// needs to be used only in onStart in an activity
+			EasyTracker.getTracker().trackEvent(category,action,label,value);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
