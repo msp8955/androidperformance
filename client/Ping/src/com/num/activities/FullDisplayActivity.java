@@ -1,6 +1,7 @@
 package com.num.activities;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.json.JSONObject;
 
@@ -55,7 +56,8 @@ public class FullDisplayActivity extends TrackedActivity{
 	private ProgressBar spinner;
 	
 	private ThreadPoolHelper serverhelper;
-	
+	private String key; // passer for onStart method
+
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,14 +78,20 @@ public class FullDisplayActivity extends TrackedActivity{
 			
 		}
 		
-		title.setText(key.toUpperCase());
+		title.setText(key.toUpperCase(Locale.US));
 		description.setText(desc);
 		description_sub.setText(desc_sub);
 		
 		serverhelper = new ThreadPoolHelper(5,10);
 		serverhelper.execute(TaskHelper.getTask(key, activity, new MeasurementListener()));
+		this.key = key;
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
 		GAnalytics.log(GAnalytics.ACTION, "Click",key);
-		
+
 	}
 	
 	public void showDisplayPage() {
