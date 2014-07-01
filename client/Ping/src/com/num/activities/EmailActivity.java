@@ -46,9 +46,9 @@ public class EmailActivity extends TrackedActivity{
 		}
 		
 		userhelp = new UserDataHelper(this);
-		enterButton = (Button) findViewById(R.id.raffle_enter_button);
-		skipButton = (Button) findViewById(R.id.raffle_skip_button);
-		emailInput = (EditText) findViewById(R.id.email_for_raffle);
+		enterButton = (Button) findViewById(R.id.contact_enter_button);
+		skipButton = (Button) findViewById(R.id.contact_skip_button);
+		emailInput = (EditText) findViewById(R.id.email_for_contact);
 		emailInput.setText(getAccountEmail());
 		
 		enterButton.setOnClickListener(new OnClickListener(){
