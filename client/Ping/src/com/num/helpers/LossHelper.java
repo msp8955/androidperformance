@@ -78,11 +78,7 @@ public class LossHelper
 			int seed = 0;
 			while(!received.equals("terminate"))
 			{
-				try{
-					clientSocket.receive(receive_packet);
-				}catch(Exception e){
-					continue;
-				}
+				clientSocket.receive(receive_packet);
 				long timestamp = new Date().getTime();//System.currentTimeMillis();
 				recvd++;
 				received = null;

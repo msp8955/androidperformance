@@ -84,14 +84,8 @@ public class FullDisplayActivity extends TrackedActivity{
 		
 		serverhelper = new ThreadPoolHelper(5,10);
 		serverhelper.execute(TaskHelper.getTask(key, activity, new MeasurementListener()));
-		this.key = key;
-	}
-
-	@Override
-	public void onStart() {
-		super.onStart();
 		GAnalytics.log(GAnalytics.ACTION, "Click",key);
-
+		this.key = key;
 	}
 	
 	public void showDisplayPage() {
