@@ -103,7 +103,13 @@ public class BillingCycleActivity extends Activity {
 					return;		
 				}
 				else{
-					Intent myIntent = new Intent(v.getContext(), MainActivity.class);
+					Intent myIntent = null;
+					if(!PreferencesUtil.contains("emailData", activity)){
+						myIntent = new Intent(v.getContext(), EmailActivity.class);
+					}
+					else {
+						myIntent = new Intent(v.getContext(), MainActivity.class);
+					}
 					myIntent.putExtra("force", force);
 					startActivity(myIntent);
 				}

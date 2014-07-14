@@ -116,7 +116,13 @@ public class DataCapActivity extends Activity {
 					return;		
 				}
 				else{
-					Intent myIntent = new Intent(v.getContext(), DataFormActivity.class);
+					Intent myIntent = null;
+					if(!PreferencesUtil.contains("emailData", activity)){
+						myIntent = new Intent(v.getContext(), EmailActivity.class);
+					}
+					else {
+						myIntent = new Intent(v.getContext(), MainActivity.class);
+					}
 					myIntent.putExtra("force", force);
 					startActivity(myIntent);
 				}
