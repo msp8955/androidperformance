@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class BillingCostActivity extends Activity {
 	private UserDataHelper userhelp;
@@ -50,6 +51,11 @@ public class BillingCostActivity extends Activity {
 				myIntent = new Intent(activity, MainActivity.class);
 			}
 			startActivity(myIntent);
+		}
+		
+		if(!force){
+			TextView titleText = (TextView) findViewById(R.id.configuration);
+			titleText.setText(titleText.getText() + " [Step: 3 of 3]");
 		}
 		
 		userhelp = new UserDataHelper(this);

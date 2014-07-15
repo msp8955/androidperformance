@@ -8,15 +8,16 @@
     android:paddingTop="@dimen/activity_vertical_margin" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
+        android:id="@+id/configuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:text="@string/step_page_2_of_3"
+        android:text="@string/configuration"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/dark_gray" />
     
     <TextView
-        android:id="@+id/data_cost_title"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -61,16 +62,16 @@
 
         <Button
 	        android1:id="@+id/billing_cycle_save_button"
-	        android1:layout_width="match_parent"
+	        android1:layout_width="0dip"
 	        android1:layout_height="wrap_content"
 	        android:layout_weight="0.50"
 	        android1:text="@string/save" />
 	    <Button
 	        android1:id="@+id/billing_cycle_skip_button"
-	        android1:layout_width="match_parent"
+	        android1:layout_width="0dip"
 	        android1:layout_height="wrap_content"
 	        android:layout_weight="0.50"
-	        android1:text="@string/skip" />
+	        android1:text="@string/skip_config" />
 
     </LinearLayout>
 

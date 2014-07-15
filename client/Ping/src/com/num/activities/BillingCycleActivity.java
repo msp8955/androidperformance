@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class BillingCycleActivity extends Activity {
 	private UserDataHelper userhelp;
@@ -57,6 +58,11 @@ public class BillingCycleActivity extends Activity {
 			}
 			startActivity(myIntent);
 			
+		}
+		
+		if(!force){
+			TextView titleText = (TextView) findViewById(R.id.configuration);
+			titleText.setText(titleText.getText() + " [Step: 2 of 3]");
 		}
 		
 		userhelp = new UserDataHelper(this);

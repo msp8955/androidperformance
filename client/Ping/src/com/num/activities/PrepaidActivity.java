@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 public class PrepaidActivity extends Activity{
 	private boolean force;
@@ -52,6 +53,12 @@ public class PrepaidActivity extends Activity{
 			}
 			startActivity(myIntent);
 		}
+		
+		if(!force){
+			TextView titleText = (TextView) findViewById(R.id.configuration);
+			titleText.setText(titleText.getText() + " [Step: 3 of 3]");
+		}
+		
 		saveButton = (Button) findViewById(R.id.prepaid_cost_save_button);
 		skipButton = (Button) findViewById(R.id.prepaid_cost_skip_button);
 		wheel = (WheelView) findViewById(R.id.prepaid_cost_wheel);

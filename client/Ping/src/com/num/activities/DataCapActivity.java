@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 public class DataCapActivity extends Activity {
 
@@ -63,6 +64,12 @@ public class DataCapActivity extends Activity {
 		}
 		
 		setContentView(R.layout.activity_data_cap);
+		
+		if(!force){
+			TextView titleText = (TextView) findViewById(R.id.configuration);
+			titleText.setText(titleText.getText() + " [Step: 1 of 3]");
+		}
+		
 		int cap = userhelp.getDataCap();
 		radioGroup = (RadioGroup) findViewById(R.id.data_cap_radio_group);
 		LinearLayout.LayoutParams rg = new RadioGroup.LayoutParams(
