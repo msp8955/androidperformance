@@ -36,7 +36,6 @@ public class CommandLineUtil {
 				message += line + "\n";
 			}
 			int status = process.waitFor();
-			Log.d("CommandLineUtil", "Current Status: " + status);
 		} catch (Exception e) {								
 		}
 		return message;

@@ -18,9 +18,20 @@ public class Measure implements Model{
 
 	private static String DESCRIPTION = "";
 
+	public String toString() {
+		return "Max: " + max + " Min: " + min + " Avg: " + average + " Std: " + stddev; 
+	}
 	public String getDescription() {
 		return DESCRIPTION;
 	}
+	
+	/**
+	 * 
+	 * @param max
+	 * @param min
+	 * @param average
+	 * @param stddev
+	 */
 	public Measure(double max, double min, double average, double stddev){
 		this.max = max;
 		this.min = min;
@@ -45,11 +56,7 @@ public class Measure implements Model{
 	}
 	
 	public String showText() {
-		if (-1<(int)getAverage()){
-			return (int)getAverage()+" ms";
-		}else{
-			return "Unreachable";
-		}
+		return (int)getAverage()+" ms";
 	}
 	public void setAverage(int average) {
 		this.average = average;
@@ -92,5 +99,12 @@ public class Measure implements Model{
 		return R.drawable.usage;
 	}
 
+	/*
+	 * 
+	 * @return true if all variables are -1, assuming it's unreachable.
+	 */
+	public boolean isDeadPing() {
+		return (max == -1 && min == max && average == max && stddev == max);
+	}
 
 }

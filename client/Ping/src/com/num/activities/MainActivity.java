@@ -52,6 +52,7 @@ public class MainActivity extends Activity {
 		serverhelper.execute(new ValuesTask(this, new FakeListener()));
 		ServiceHelper.processRestartService(this);
 		ArrayList<Row> cells = new ArrayList<Row>();
+		session.DEBUG = true;
 
 		cells.add(new Row(new ActivityItem("Speed Test",
 				"Get Down/Up speed, 40 sec", new Handler() {
