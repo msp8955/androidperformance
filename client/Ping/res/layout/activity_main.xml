@@ -22,10 +22,18 @@
 		android:background="@color/dark_gray"
 		android:orientation="horizontal" />
 	
-    <ListView
+	<ScrollView
+        android1:id="@+id/scrollView1"
+        android1:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:fillViewport="true" >
+        
+    	<ListView
 			android:id="@+id/main_list_view"
 			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="fill_parent"
 			android:listSelector="@android:color/transparent" >
-	</ListView>
+		</ListView>
+		
+	</ScrollView>
 </LinearLayout>
