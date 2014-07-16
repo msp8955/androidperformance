@@ -56,7 +56,11 @@ public class Measure implements Model{
 	}
 	
 	public String showText() {
-		return (int)getAverage()+" ms";
+		if (-1<(int)getAverage()){
+			return (int)getAverage()+" ms";
+		}else{
+			return "Unreachable";
+		}
 	}
 	public void setAverage(int average) {
 		this.average = average;
