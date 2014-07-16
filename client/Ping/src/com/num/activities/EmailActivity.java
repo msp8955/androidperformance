@@ -38,7 +38,7 @@ public class EmailActivity extends TrackedActivity{
 			force = false;
 		}
 		
-		//Skip if data is already present
+		//Skip if data is already present upon starting the application
 		if(!force && PreferencesUtil.contains("emailData", this)){
 			finish();
 			Intent myIntent = new Intent(this, MainActivity.class);
@@ -49,7 +49,15 @@ public class EmailActivity extends TrackedActivity{
 		enterButton = (Button) findViewById(R.id.contact_enter_button);
 		skipButton = (Button) findViewById(R.id.contact_skip_button);
 		emailInput = (EditText) findViewById(R.id.email_for_contact);
-		emailInput.setText(getAccountEmail());
+		
+		//Show current email data if already present when accessed from settings
+		if(force && PreferencesUtil.contains("emailData", this)){
+			emailInput.setText(userhelp.getEmailData());
+		}
+		//Show primary email from device if no email data has been collected from the user
+		else{
+			emailInput.setText(getAccountEmail());
+		}
 		
 		enterButton.setOnClickListener(new OnClickListener(){
 			public void onClick(View v) {
@@ -75,13 +83,13 @@ public class EmailActivity extends TrackedActivity{
 		skipButton.setOnClickListener(new OnClickListener(){
 			
 			public void onClick(View v) {
-				userhelp.setEmailData("N/A");
 				finish();
 				if(force){
 					finishActivity(0);
 					return;		
 				}
 				else{
+					userhelp.setEmailData("N/A");
 					Intent myIntent = new Intent(v.getContext(), MainActivity.class);
 					myIntent.putExtra("force", force);
 					startActivity(myIntent);
