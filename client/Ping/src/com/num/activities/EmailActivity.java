@@ -75,6 +75,7 @@ public class EmailActivity extends TrackedActivity{
 		skipButton.setOnClickListener(new OnClickListener(){
 			
 			public void onClick(View v) {
+				userhelp.setEmailData("N/A");
 				finish();
 				if(force){
 					finishActivity(0);
