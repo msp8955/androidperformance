@@ -42,16 +42,20 @@ public class StartActivity extends TrackedActivity
 				else if(!PreferencesUtil.contains("dataLimit",activity)){
 					myIntent = new Intent(activity, DataCapActivity.class);
 				}
-				else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap() == UserDataHelper.PREPAID){
-					myIntent = new Intent(activity, PrepaidActivity.class);
+				else if(!PreferencesUtil.contains("emailData", activity)){
+					myIntent = new Intent(activity, EmailActivity.class);
 				}
-				else if(!PreferencesUtil.contains("billingCycle",activity) && userhelp.getDataCap()!=UserDataHelper.NONE &&
-						userhelp.getDataCap() != UserDataHelper.PREPAID){
-					myIntent = new Intent(activity, BillingCycleActivity.class);
-				}
-				else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap()!=UserDataHelper.NONE){
-					myIntent = new Intent(activity, BillingCostActivity.class);
-				}
+				/* Only collecting data cap */
+//				else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap() == UserDataHelper.PREPAID){
+//					myIntent = new Intent(activity, PrepaidActivity.class);
+//				}
+//				else if(!PreferencesUtil.contains("billingCycle",activity) && userhelp.getDataCap()!=UserDataHelper.NONE &&
+//						userhelp.getDataCap() != UserDataHelper.PREPAID){
+//					myIntent = new Intent(activity, BillingCycleActivity.class);
+//				}
+//				else if(!PreferencesUtil.contains("billingCost",activity) && userhelp.getDataCap()!=UserDataHelper.NONE){
+//					myIntent = new Intent(activity, BillingCostActivity.class);
+//				}
 				else {
 					myIntent = new Intent(activity, MainActivity.class);
 				}

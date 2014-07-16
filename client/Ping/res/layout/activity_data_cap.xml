@@ -9,15 +9,6 @@
     android:paddingTop="@dimen/activity_vertical_margin" >
 
     <TextView
-        android:id="@+id/configuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:text="@string/configuration"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/dark_gray" />
-    
-    <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,7 +66,7 @@
 	        android1:layout_width="0dip"
 	        android1:layout_height="wrap_content"
 	        android:layout_weight="0.50"
-	        android1:text="@string/skip_config" />
+	        android1:text="@string/skip" />
     
     </LinearLayout>
     
