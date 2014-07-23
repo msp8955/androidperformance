@@ -54,7 +54,6 @@ public class SpeedTestDisplayActivity extends TrackedActivity {
 	//ImageView imageview;
 	private TextView description;
 	private Activity activity;
-	private ProgressBar spinner;
 	
 	private ThreadPoolHelper serverhelper;
 	
@@ -88,7 +87,6 @@ public class SpeedTestDisplayActivity extends TrackedActivity {
 //		setContentView(R.layout.load_screen);
 		startTestBtn.setText("Running " + title.getText().toString().toLowerCase() + " test...");
 		startTestBtn.setClickable(false);
-		spinner.setVisibility(View.VISIBLE);
 	}
 	
 	public void showDisplayPage() {
@@ -97,8 +95,6 @@ public class SpeedTestDisplayActivity extends TrackedActivity {
 		listview = (ListView) findViewById(R.id.main_list_view);	
 		description = (TextView) findViewById(R.id.description);
 		startTestBtn = (Button) findViewById(R.id.start_test);
-		spinner = (ProgressBar)findViewById(R.id.item_view_start_button_progress_bar);
-		spinner.setVisibility(View.GONE);
 	}
 
 	@Override
@@ -267,8 +263,6 @@ public class SpeedTestDisplayActivity extends TrackedActivity {
 				itemadapter.notifyDataSetChanged();
 				UIUtil.setListViewHeightBasedOnChildren(listview,itemadapter);
 			}
-			
-			spinner.setVisibility(View.GONE);
 
 		}
 	};

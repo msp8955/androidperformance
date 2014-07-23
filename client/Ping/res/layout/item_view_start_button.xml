@@ -117,14 +117,6 @@
                 </LinearLayout>
             </LinearLayout>
             
-            <ProgressBar
-		      	android:id="@+id/item_view_start_button_progress_bar"
-		      	style="?android:attr/progressBarStyleLarge"
-		      	android:layout_width="wrap_content"
-		      	android:layout_height="wrap_content"
-		      	android:layout_below="@+id/item_view_start_button_top_layout"
-		      	android:layout_centerHorizontal="true" />
-            
         </RelativeLayout>
     </ScrollView>
 
