@@ -56,18 +56,18 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/contact_enter_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.50"
-            android:text="@string/enter" />
-
-        <Button
             android:id="@+id/contact_skip_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.50"
             android:text="@string/skip" />
+        
+        <Button
+            android:id="@+id/contact_save_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.50"
+            android:text="@string/save" />
 
     </LinearLayout>
 

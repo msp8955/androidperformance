@@ -13,8 +13,8 @@
     <string name="title_activity_prepaid">PREPAID</string>
     <string name="title_activity_contact">ENTER CONTACT DETAILS</string>
     <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
     <string name="enter">Enter</string>
-    <string name="reject">Reject</string>
     <string name="skip">Skip</string>
     <string name="skip_config">Skip Configuration</string>
     <string name="cancel">Cancel</string>

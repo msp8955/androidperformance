@@ -98,7 +98,7 @@ public class PrivacyActivity extends TrackedActivity
 		serverhelper.execute(new UrlTask(activity,new HashMap<String,String>(), "http://ruggles.gtnoise.net/static/Conditions_of_Use.html", new UrlListener()));
 
 		acceptButton = (Button) findViewById(R.id.privacy_accept_button);
-		rejectButton = (Button) findViewById(R.id.privacy_reject_button);
+		rejectButton = (Button) findViewById(R.id.privacy_decline_button);
 		
 		rejectButton.setOnClickListener(new OnClickListener()  {
 			public void onClick(View v) {	

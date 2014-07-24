@@ -55,18 +55,19 @@
         android:gravity="bottom"
         android:layout_gravity="center_horizontal" >
 
-        <Button
-	        android1:id="@+id/data_cap_save_button"
-	        android1:layout_width="0dip"
-	        android1:layout_height="wrap_content"
-	        android:layout_weight="0.50"
-	        android1:text="@string/save" />
 	    <Button
 	        android1:id="@+id/data_cap_skip_button"
 	        android1:layout_width="0dip"
 	        android1:layout_height="wrap_content"
 	        android:layout_weight="0.50"
 	        android1:text="@string/skip" />
+	    
+	    <Button
+	        android1:id="@+id/data_cap_save_button"
+	        android1:layout_width="0dip"
+	        android1:layout_height="wrap_content"
+	        android:layout_weight="0.50"
+	        android1:text="@string/save" />
     
     </LinearLayout>
     
