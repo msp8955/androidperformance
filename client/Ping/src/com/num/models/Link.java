@@ -25,7 +25,7 @@ public class Link implements Model{
 	}
 	
 	public String showData() {
-		return (int)speedInBits()+" kbps";
+		return String.format("%.3f Mbps", (double)speedInBits()/1000);
 	}
 
 	public String getDstIp() {

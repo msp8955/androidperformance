@@ -12,8 +12,8 @@ public class GraphData {
 	String yAxisTitle="";
 	String yAxisUnits="";
 	
-	public int getyMax() {
-		int yMax = 0;
+	public double getyMax() {
+		double yMax = 0;
 		
 		for(GraphPoint point : points) {
 			yMax = Math.max(yMax, point.y);

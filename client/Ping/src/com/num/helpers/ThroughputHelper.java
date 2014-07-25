@@ -48,8 +48,8 @@ public class ThroughputHelper {
 		t = new Throughput();
 		
 		try {
-			Link up=tu.uplinkmeasurement(context,new ThroughputListener());
-			t.setUpLink(up);
+			Link down=tu.downlinkmeasurement(context,new ThroughputListener());
+			t.setDownLink(down);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,8 +58,11 @@ public class ThroughputHelper {
 			e.printStackTrace();
 		}
 		try {
-			Link down=tu.downlinkmeasurement(context,new ThroughputListener());
-			t.setDownLink(down);
+			Link up=tu.uplinkmeasurement(context,new ThroughputListener());
+			t.setUpLink(up);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

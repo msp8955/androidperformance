@@ -3,8 +3,8 @@ package com.num.models;
 import java.util.Date;
 
 public class GraphPoint implements Comparable<GraphPoint> {
-	public int x;
-	public int y;
+	public double x;
+	public double y;
 	public Date datetime;
 	public String string;
 	public int count;
@@ -14,7 +14,7 @@ public class GraphPoint implements Comparable<GraphPoint> {
 		sortByDate = valid;
 	}
 	
-	public GraphPoint(int x,int y,Date date) {
+	public GraphPoint(double x,double y,Date date) {
 		this.x = x;
 		this.y = y;
 		this.datetime = date;
@@ -53,7 +53,7 @@ public class GraphPoint implements Comparable<GraphPoint> {
 		count++;
 	}
 	
-	public int getValue() {
+	public double getValue() {
 		return y/count;
 	}
 }

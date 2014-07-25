@@ -22,7 +22,6 @@ import com.num.database.mapping.BaseMapping;
 import com.num.database.mapping.ThroughputMapping;
 import com.num.helpers.GAnalytics;
 import com.num.models.GraphData;
-
 import com.num.models.GraphPoint;
 import com.num.models.Link;
 import com.num.models.MainModel;
@@ -112,8 +111,8 @@ public class ThroughputDataSource extends DataSource {
 		
 		DatabaseOutput output = new DatabaseOutput();
 				
-		output.add("avg_upload", ""+totalUpload/countUpload);
-		output.add("avg_download", ""+totalDownload/countDownload);
+		output.add("avg_download", String.format("%.3f", (double)totalDownload/countDownload/1000));
+		output.add("avg_upload", String.format("%.3f", (double)totalUpload/countUpload/1000));
 
 		return output;
 	}
@@ -141,13 +140,13 @@ public class ThroughputDataSource extends DataSource {
 			
 			if(data.get(ThroughputMapping.COLUMN_TYPE).equals("uplink")){
 				try {
-					uploadPoints.add(new GraphPoint(uploadPoints.size(),extractValue(data),extractTime(data)));
+					uploadPoints.add(new GraphPoint(uploadPoints.size(),extractValue(data)/1000,extractTime(data)));
 				} catch (Exception e) {
 					continue;
 				}				
 			} else if(data.get(ThroughputMapping.COLUMN_TYPE).equals("downlink")){
 				try {
-					downloadPoints.add(new GraphPoint(downloadPoints.size(),extractValue(data),extractTime(data)));
+					downloadPoints.add(new GraphPoint(downloadPoints.size(),extractValue(data)/1000,extractTime(data)));
 				} catch (Exception e) {
 					continue;
 				}				
